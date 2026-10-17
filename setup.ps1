@@ -25,6 +25,15 @@ function Act($desc, [scriptblock]$block) {
     if ($DryRun) { Say "  [dry-run] $desc" "DarkCyan" } else { Say "  $desc"; & $block }
 }
 
+function Native([string]$exe, [string[]]$argv) {
+    # Windows PowerShell 5.1 turns a native tool's stderr into a terminating
+    # error under ErrorActionPreference=Stop. Run native tools with Continue
+    # and judge success by the exit code only.
+    $old = $ErrorActionPreference; $ErrorActionPreference = "Continue"
+    try { & $exe @argv 2>&1 | ForEach-Object { "    $_" } | Out-Host; return $LASTEXITCODE }
+    finally { $ErrorActionPreference = $old }
+}
+
 if (Get-Process -Name "claude" -ErrorAction SilentlyContinue) {
     Say "Claude is running. Close Claude Code and the Claude desktop app, then run this again." "Red"
     exit 1
@@ -74,9 +83,12 @@ if (-not $SkipRea) {
     if (-not (Get-Command claude -ErrorAction SilentlyContinue)) { Say "  'claude' not on PATH - skipped. Run later: claude mcp add --scope user rea -- cmd /c npx -y rea-agents@6.5.0 mcp" "Yellow" }
     elseif (-not (Get-Command npx -ErrorAction SilentlyContinue)) { Say "  Node.js/npx not found - install Node 22 LTS, then rerun with -SkipOpenMontage" "Yellow" }
     else {
-        & claude mcp get rea *> $null
-        if ($LASTEXITCODE -eq 0) { Say "  already registered" "Green" }
-        else { Act "claude mcp add --scope user rea -- cmd /c npx -y rea-agents@6.5.0 mcp" { & claude mcp add --scope user rea -- cmd /c npx -y rea-agents@6.5.0 mcp } }
+        $old = $ErrorActionPreference; $ErrorActionPreference = "Continue"
+        & claude mcp get rea *> $null; $found = ($LASTEXITCODE -eq 0)
+        $ErrorActionPreference = $old
+        if ($found) { Say "  already registered" "Green" }
+        else { Act "claude mcp add --scope user rea -- cmd /c npx -y rea-agents@6.5.0 mcp" {
+            if ((Native "claude" @("mcp","add","--scope","user","rea","--","cmd","/c","npx","-y","rea-agents@6.5.0","mcp")) -ne 0) { Say "  registration failed - see the message above" "Red" } } }
     }
 }
 
@@ -88,8 +100,8 @@ if (-not $SkipOpenMontage) {
     elseif (-not (Get-Command git -ErrorAction SilentlyContinue)) { Say "  git not found - skipped" "Yellow" }
     else {
         Act "git clone OpenMontage (pinned c806645) into workspaces\OpenMontage" {
-            & git clone https://github.com/calesthio/OpenMontage $om
-            & git -C $om checkout -q c806645
+            if ((Native "git" @("clone","https://github.com/calesthio/OpenMontage",$om)) -ne 0) { Say "  clone failed" "Red"; return }
+            [void](Native "git" @("-C",$om,"checkout","-q","c806645"))
         }
     }
 }
@@ -113,8 +125,8 @@ When installing anything new: review it first, then follow ``C:\Dev\Skills Insta
 # Keep imported laptop skills safe in git.
 if ($Imported.Count -gt 0 -and -not $DryRun -and (Test-Path (Join-Path $Root ".git"))) {
     Say "`n== Committing imported laptop skills" "Cyan"
-    & git -C $Root add skills agents
-    & git -C $Root commit -q -m "Import existing laptop skills ($Stamp)"
+    [void](Native "git" @("-C",$Root,"add","skills","agents"))
+    [void](Native "git" @("-C",$Root,"commit","-q","-m","Import existing laptop skills ($Stamp)"))
     $Imported | Out-File (Join-Path $Root "_imported-$Stamp.txt") -Encoding UTF8
 }
 
