@@ -1,0 +1,217 @@
+<title>Skills Installed</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F1F3F7; --surface:#FFFFFF; --sunk:#E9EDF3; --ink:#111521; --muted:#566074; --line:#DAE0E8;
+  --accent:#2F55D4; --accent-soft:#E4EAFC;
+  --t-low:#2D7A4C; --t-low-s:#E1F1E7; --t-medium:#A0640C; --t-medium-s:#F7ECD8;
+  --t-high:#B23838; --t-high-s:#F8E3E2; --t-variable:#5E4FC2; --t-variable-s:#ECE9FA;
+  --pip:#D4DAE3;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0C0F15; --surface:#141922; --sunk:#10141C; --ink:#E6EAF2; --muted:#97A1B4; --line:#252E3D;
+    --accent:#8FA7FF; --accent-soft:#1C2540;
+    --t-low:#6FCF95; --t-low-s:#14291D; --t-medium:#E8B157; --t-medium-s:#2E2410;
+    --t-high:#F08A84; --t-high-s:#33191A; --t-variable:#AFA4F5; --t-variable-s:#221E3D;
+    --pip:#2C3546;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0C0F15; --surface:#141922; --sunk:#10141C; --ink:#E6EAF2; --muted:#97A1B4; --line:#252E3D;
+  --accent:#8FA7FF; --accent-soft:#1C2540;
+  --t-low:#6FCF95; --t-low-s:#14291D; --t-medium:#E8B157; --t-medium-s:#2E2410;
+  --t-high:#F08A84; --t-high-s:#33191A; --t-variable:#AFA4F5; --t-variable-s:#221E3D;
+  --pip:#2C3546;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.55 "IBM Plex Sans",system-ui,sans-serif;margin:0;padding:28px 16px 64px}
+.wrap{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:24px}
+h1,h2,h3{font-family:"Familjen Grotesk","IBM Plex Sans",sans-serif;margin:0;text-wrap:balance}
+h1{font-size:clamp(30px,5vw,44px);font-weight:700;letter-spacing:-.02em;line-height:1.05}
+.mono,code{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px}
+header{display:flex;flex-direction:column;gap:10px}
+.lede{color:var(--muted);max-width:68ch;margin:0}
+.live{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted)}
+.live i{width:8px;height:8px;border-radius:50%;background:var(--pip);display:block}
+.live.on i{background:var(--t-low);box-shadow:0 0 0 3px var(--t-low-s)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.stat b{display:block;font-family:"Familjen Grotesk",sans-serif;font-size:24px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.15}
+.stat span{font-size:12.5px;color:var(--muted)}
+.tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{font:500 13px "IBM Plex Sans",sans-serif;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+input[type=search]{flex:1 1 220px;min-width:0;font:inherit;padding:7px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12.5px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.group-h{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:8px 0 -8px}
+.list{display:flex;flex-direction:column;gap:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:12px}
+.c-top{display:flex;flex-wrap:wrap;align-items:flex-start;gap:8px 14px}
+.c-title{flex:1 1 280px;min-width:0}
+.c-title h3{font-size:20px;font-weight:600;line-height:1.2}
+.invoke{display:inline-block;margin-top:4px;background:var(--sunk);padding:2px 8px;border-radius:6px;color:var(--ink);overflow-wrap:anywhere}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:11.5px;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--sunk);color:var(--muted);white-space:nowrap}
+.chip.status{background:var(--accent-soft);color:var(--accent)}
+.summary{margin:0;max-width:85ch}
+.spend{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;align-items:start;background:var(--sunk);border-radius:10px;padding:12px 14px}
+.meter{display:flex;flex-direction:column;gap:6px;min-width:92px}
+.pips{display:flex;gap:3px}
+.pips i{width:16px;height:7px;border-radius:2px;background:var(--pip);display:block}
+.tier{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.spend dl{margin:0;display:grid;grid-template-columns:max-content 1fr;gap:4px 12px;font-size:13.5px}
+.spend dt{color:var(--muted);font-weight:500}
+.spend dd{margin:0}
+.t-low .tier{color:var(--t-low)} .t-low .pips i.on{background:var(--t-low)}
+.t-medium .tier{color:var(--t-medium)} .t-medium .pips i.on{background:var(--t-medium)}
+.t-high .tier{color:var(--t-high)} .t-high .pips i.on{background:var(--t-high)}
+.t-variable .tier{color:var(--t-variable)} .t-variable .pips i.on{background:var(--t-variable)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px 20px}
+.cols h4{font-size:11.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin:0 0 6px;font-family:"IBM Plex Sans",sans-serif}
+.cols ul{margin:0;padding-left:16px;display:flex;flex-direction:column;gap:4px;font-size:14px}
+.cols ul.how{list-style:none;padding:0}
+.cols ul.how li{font-family:"IBM Plex Mono",monospace;font-size:12.5px;background:var(--sunk);border-radius:6px;padding:5px 8px;overflow-wrap:anywhere}
+.foot{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
+.foot a{color:var(--accent)}
+.note{font-size:13px;color:var(--muted);margin:0}
+.empty{background:var(--surface);border:1px dashed var(--line);border-radius:14px;padding:24px;text-align:center;color:var(--muted)}
+.page-foot{font-size:12.5px;color:var(--muted);max-width:80ch}
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Skills Installed</h1>
+    <p class="lede">Every Claude Code skill in <code>C:\Dev\Skills Installed</code>: what it does, what it costs in tokens, when it's worth it, and how to start it.</p>
+    <span class="live" id="live" role="status"><i></i><span id="liveText">Snapshot</span></span>
+  </header>
+
+  <section class="stats" aria-label="Summary" id="stats"></section>
+
+  <section class="tools" aria-label="Filter">
+    <div class="seg" id="scopes"></div>
+    <input type="search" id="q" placeholder="Search skills, uses, commands…" aria-label="Search skills">
+  </section>
+  <div class="legend" aria-label="Spend levels">
+    <span><b class="tier" style="color:var(--t-low)">Low</b> about one normal answer</span>
+    <span><b class="tier" style="color:var(--t-medium)">Medium</b> a few subagents</span>
+    <span><b class="tier" style="color:var(--t-high)">High</b> many subagents or long runs</span>
+    <span><b class="tier" style="color:var(--t-variable)">Variable</b> depends on the target</span>
+  </div>
+
+  <main id="list" class="list"></main>
+
+  <p class="page-foot">Token figures come from measured file sizes (about 4 characters per token). Per-use figures for multi-agent skills are estimates. "Idle" is what a skill adds to every session before you use it. New installs appear here automatically: each install writes a record to this page's live catalog.</p>
+</div>
+
+<script type="application/json" id="snapshot">{"updated": "2026-10-17", "skills": [{"id": "council", "name": "Council of High Intelligence", "invoke": "/council", "kind": "Skill + 18 agents", "scope": "Every project", "group": "General", "status": "Installed", "source": {"repo": "0xNyk/council-of-high-intelligence", "ref": "bb42b4b (v1.2.0)", "license": "MIT"}, "installed": "2026-10-17", "summary": "18 thinker personas (Feynman, Taleb, Munger, Torvalds, Socrates and more) deliberate a hard decision. They analyse blind first, cross-examine each other anonymously, then vote. A chairman writes the verdict, including what would prove it wrong and one concrete next step.", "spend": {"tier": "high", "idle": "~650 tokens per session (the 18 agent descriptions). The skill itself loads only when you call it.", "perUse": "--quick or --duo: ~50–90k tokens. Default (3 personas): ~120–250k. --full (all 18): ~1–1.5M, about 100× a normal answer."}, "bestFor": ["Decisions that are expensive to reverse: pricing, architecture, launch plans", "\"Should multi-person splitting be free or Pro?\"-type product calls", "Stress-testing a plan you're already leaning towards"], "avoid": ["Coding tasks, factual lookups, anything a test can answer", "Questions already decided", "--full: going from 3 to 18 personas costs a lot and adds little"], "howTo": ["/council --quick <question>   → cheapest real deliberation", "/council --duo <question>     → two opposing personas", "/council <question>           → default 3-persona panel, 3 rounds", "/council --triad strategy <question>   → pick the panel", "On the laptop add --no-auto-route to keep seats off your local Ollama model"], "notes": "Local patches: runs only when you type /council; Codex seats are read-only; personas can't run shell commands. See skills/council/LOCAL_PATCHES.md.", "idleTokens": 650}, {"id": "llm-council", "name": "LLM Council (light)", "invoke": "/llm-council", "kind": "Skill", "scope": "Every project", "group": "General", "status": "Installed", "source": {"repo": "own skill, adapted from karpathy/llm-council", "ref": "a0e0194", "license": "—"}, "installed": "2026-07-11", "summary": "Your original council, renamed so it doesn't clash with /council. Opus, Sonnet and Haiku each answer the question on their own, rank each other's answers anonymously, and the main session writes a synthesis.", "spend": {"tier": "medium", "idle": "~115 tokens per session (description).", "perUse": "About 6 subagent calls, roughly 60–120k tokens (estimate)."}, "bestFor": ["A quick second opinion from several models without personas or a formal verdict"], "avoid": ["Big decisions: use /council instead", "Overlaps with /council --quick, so consider retiring one"], "howTo": ["/llm-council <question>"], "notes": "Was called /council on the branch claude/github-skip-scope-investigation-7EiT4 and mirrored to the laptop. The setup script moves the old laptop copy to _conflicts.", "idleTokens": 115}, {"id": "prompt-master", "name": "Prompt Master", "invoke": "Ask for a prompt, or /prompt-master", "kind": "Skill", "scope": "Every project", "group": "General", "status": "Installed", "source": {"repo": "nidhinjs/prompt-master", "ref": "v1.7.0", "license": "MIT"}, "installed": "2026-07-13", "summary": "Turns a rough idea into one paste-ready prompt tuned for a specific AI tool, such as Claude Code, Cursor, ChatGPT, Midjourney or Sora. It asks at most 3 clarifying questions, and for agent tools it adds file-scope limits, stop conditions and checkpoints.", "spend": {"tier": "low", "idle": "~80 tokens per session (description).", "perUse": "~7k tokens, plus up to ~6k when it loads its templates. About the cost of one normal answer."}, "bestFor": ["Mega-prompts for Claude Code or Cursor", "Adapting a prompt for another AI tool", "Fixing a prompt that keeps giving weak results"], "avoid": ["Nothing to avoid: it stays dormant unless you ask for a prompt"], "howTo": ["\"Write me a Claude Code prompt to …\" (starts automatically)", "/prompt-master <rough idea>"], "notes": "", "idleTokens": 85}, {"id": "reverse-engineer-anything", "name": "REA: Reverse Engineer Anything", "invoke": "Ask Claude to use REA", "kind": "Skill + MCP server", "scope": "Every project", "group": "General", "status": "Run setup.ps1 on the laptop", "source": {"repo": "morluto/rea", "ref": "bd3210e · rea-agents@6.5.0", "license": "MIT"}, "installed": "2026-10-17", "summary": "Inspects shipped apps without their source code: native binaries, Electron/JavaScript apps, .NET, Android, firmware and websites. It explains how a feature works, with the evidence and limits behind each conclusion. Analysis runs locally.", "spend": {"tier": "variable", "idle": "~75 tokens per session (skill description), plus the MCP tool list. That list is large (~180 tools), but Claude Code holds big tool sets back until needed.", "perUse": "~6k tokens for the skill and up to ~13k for references when it loads them. Decompiled output can add 20–200k depending on the target."}, "bestFor": ["\"How does app X implement feature Y?\" on software you're allowed to analyse", "Checking what's inside your own builds (SplitEven APK/AAB, Electron bundles)", "Security review of your own shipped artifacts"], "avoid": ["Normal source repos (just read the code)", "DRM or licence bypass, cheats, anything a target's terms forbid (see the project's DISCLAIMER)"], "howTo": ["Needs Node.js; setup.ps1 registers the 'rea' MCP server pinned to 6.5.0", "For native binaries install Ghidra (free); Hopper is macOS-only", "\"Use REA to analyse how <app> does <feature>\"", "Check it's connected: claude mcp list"], "notes": "Responsible-use policy in the upstream DISCLAIMER.md applies.", "idleTokens": 75}, {"id": "openmontage", "name": "OpenMontage", "invoke": "Open Claude Code inside its folder", "kind": "Workspace (49 skills)", "scope": "Inside its folder", "group": "Workspaces", "status": "Run setup.ps1 on the laptop", "source": {"repo": "calesthio/OpenMontage", "ref": "c806645", "license": "AGPL-3.0"}, "installed": "2026-10-17", "summary": "A video production studio your coding agent runs: research, script, stock or AI-generated footage, narration, a Remotion edit and the final render. It ships 49 skills of its own that only load while you work inside its folder.", "spend": {"tier": "high", "idle": "Nothing outside its folder. About 2k tokens of skill descriptions while you work in it.", "perUse": "A full video run is token-heavy (estimate: several hundred k), plus provider charges if you use paid video or voice APIs. The free route uses stock footage and local tools."}, "bestFor": ["Promo and explainer videos, e.g. a 9:16 or Portuguese cut of the SplitEven launch video"], "avoid": ["Simple one-off edits (use ffmpeg)", "Installing its 49 skills globally: they depend on its own tools", "Face-swap or avatar features without the depicted person's consent"], "howTo": ["cd \"C:\\Dev\\Skills Installed\\workspaces\\OpenMontage\"", "Follow its README Quick Start (Python venv + requirements, Node for remotion-composer, ffmpeg)", "Copy .env.example to .env and add only the keys you'll use", "Run claude there and describe the video"], "notes": "Cloned by setup.ps1 at the reviewed commit; not stored in this repo (AGPL, 92 MB).", "idleTokens": 0}, {"id": "vibe-code-audit", "name": "Vibe-code audit", "invoke": "\"Does this look AI-generated?\"", "kind": "Skill", "scope": "Every project", "group": "General", "status": "On laptop: moved in by setup.ps1", "source": {"repo": "Anthropic skill (installed 2026-10-01 in a SplitEven session)", "ref": "—", "license": "—"}, "installed": "2026-10-01", "summary": "Audits a web app for the tell-tale signs it was \"vibe-coded\" and fixes them: preview domains, missing metadata and social previews, missing 404, loading and empty states, console noise, bundle bloat, responsive breakage and dead links.", "spend": {"tier": "medium", "idle": "~100 tokens per session (description).", "perUse": "Not measured. It reads the app and makes fixes, so expect the cost of a medium coding task."}, "bestFor": ["Pre-launch polish pass on a website or web app", "\"Does this look professional?\""], "avoid": ["Backend-only code"], "howTo": ["\"Run a vibe-code audit on landing/\"", "Used on spliteven.ai on 2026-10-01"], "notes": "Lives on the laptop; details will be confirmed after setup.ps1 imports it.", "idleTokens": 100}, {"id": "add-api-endpoint", "name": "Add API endpoint", "invoke": "\"Add an endpoint for …\"", "kind": "Project skill", "scope": "BernexApp only", "group": "BernexApp", "status": "In BernexApp (unmerged branch)", "source": {"repo": "own skill", "ref": "branch claude/github-skip-scope-investigation-7EiT4", "license": "—"}, "installed": "2026-07-11", "summary": "Adds a REST endpoint end-to-end: Zod schema in shared-types, Express router, mounting, and the mobile apiFetch call.", "spend": {"tier": "low", "idle": "~80 tokens per session, in BernexApp sessions only.", "perUse": "~700 tokens of instructions plus the coding work itself."}, "bestFor": ["New backend routes the app or admin will call"], "avoid": ["Other projects"], "howTo": ["\"Add an endpoint to list offers by category\""], "notes": "A safekeeping copy is in project-skills/bernexapp/.", "idleTokens": 80}, {"id": "db-schema-change", "name": "DB schema change", "invoke": "\"Add a field to …\"", "kind": "Project skill", "scope": "BernexApp only", "group": "BernexApp", "status": "In BernexApp (unmerged branch)", "source": {"repo": "own skill", "ref": "branch claude/github-skip-scope-investigation-7EiT4", "license": "—"}, "installed": "2026-07-11", "summary": "Changes the Prisma schema safely and propagates the change: db push/migrate, Zod schemas, rebuilding shared types.", "spend": {"tier": "low", "idle": "~95 tokens per session, in BernexApp sessions only.", "perUse": "~750 tokens of instructions plus the work."}, "bestFor": ["Any column, table, relation or index change"], "avoid": ["Other projects"], "howTo": ["\"Add a 'verifiedAt' column to User\""], "notes": "The handover flags a missing Prisma migrations baseline before the first production deploy.", "idleTokens": 95}, {"id": "mobile-offline-flow", "name": "Mobile offline flow", "invoke": "\"Make X work offline\"", "kind": "Project skill", "scope": "BernexApp only", "group": "BernexApp", "status": "In BernexApp (unmerged branch)", "source": {"repo": "own skill", "ref": "branch claude/github-skip-scope-investigation-7EiT4", "license": "—"}, "installed": "2026-07-11", "summary": "Implements or debugs the offline-first draft queue: AsyncStorage drafts that are sent when the network returns.", "spend": {"tier": "low", "idle": "~125 tokens per session, in BernexApp sessions only.", "perUse": "~850 tokens of instructions plus the work."}, "bestFor": ["Offline signalements, retry on reconnect"], "avoid": ["Other projects"], "howTo": ["\"Make event RSVPs work offline\""], "notes": "", "idleTokens": 125}, {"id": "pre-deploy-check", "name": "Pre-deploy check", "invoke": "\"Ready to deploy?\"", "kind": "Project skill", "scope": "BernexApp only", "group": "BernexApp", "status": "In BernexApp (unmerged branch)", "source": {"repo": "own skill", "ref": "branch claude/github-skip-scope-investigation-7EiT4", "license": "—"}, "installed": "2026-07-11", "summary": "Walks the Bernex deploy checklist before production: Swiss data residency env vars, secrets, privacy URL and EAS IDs.", "spend": {"tier": "low", "idle": "~90 tokens per session, in BernexApp sessions only.", "perUse": "~650 tokens of instructions plus the checks."}, "bestFor": ["Before any production release"], "avoid": ["Other projects"], "howTo": ["\"Run the pre-deploy check for the API\""], "notes": "Already flagged placeholder IDs in eas.json.", "idleTokens": 90}, {"id": "scraper-run", "name": "Scraper run", "invoke": "\"Scrape the news\"", "kind": "Project skill", "scope": "BernexApp only", "group": "BernexApp", "status": "In BernexApp (unmerged branch)", "source": {"repo": "own skill", "ref": "branch claude/github-skip-scope-investigation-7EiT4", "license": "—"}, "installed": "2026-07-11", "summary": "Runs a bernex.ch scraper (news, events or the waste calendar) into the moderation queue and reports what was staged.", "spend": {"tier": "low", "idle": "~95 tokens per session, in BernexApp sessions only.", "perUse": "~650 tokens of instructions plus the run."}, "bestFor": ["Refreshing content from bernex.ch"], "avoid": ["Other projects"], "howTo": ["\"Refresh the waste schedule\""], "notes": "", "idleTokens": 95}]}</script>
+<script>
+(function(){
+  const $ = (id) => document.getElementById(id);
+  const snapshot = JSON.parse($("snapshot").textContent);
+  const TIERS = {low:1, medium:2, high:3, variable:2};
+  const GROUP_ORDER = ["General","Workspaces","BernexApp"];
+  const SCOPES = ["All","Every project","Inside its folder","BernexApp only"];
+  let items = snapshot.skills.slice();
+  let scope = "All", query = "";
+
+  function el(tag, cls, text){ const e=document.createElement(tag); if(cls) e.className=cls; if(text!=null) e.textContent=text; return e; }
+  function list(cls, arr){ const ul=el("ul",cls); (arr||[]).forEach(t=>ul.appendChild(el("li",null,t))); return ul; }
+  function ghLink(repo){ return /^[\w.-]+\/[\w.-]+$/.test(repo) ? "https://github.com/"+repo : null; }
+
+  function renderStats(){
+    const s = $("stats"); s.textContent = "";
+    const every = items.filter(i=>i.scope==="Every project");
+    const idle = every.reduce((a,i)=>a+(Number(i.idleTokens)||0),0);
+    const heavy = items.filter(i=>i.spend && i.spend.tier==="high").map(i=>i.invoke.startsWith("/")?i.invoke:i.name);
+    [[items.length, "installed skills, agents packs and workspaces"],
+     [every.length, "load in every project"],
+     ["~"+(idle>=1000?(idle/1000).toFixed(1)+"k":idle), "idle tokens per session, before you use any of them"],
+     [heavy.length, "high-spend: "+(heavy.join(", ")||"none")]
+    ].forEach(([n,l])=>{ const d=el("div","stat"); d.appendChild(el("b",null,String(n))); d.appendChild(el("span",null,l)); s.appendChild(d); });
+  }
+
+  function renderScopes(){
+    const box = $("scopes"); box.textContent = "";
+    SCOPES.forEach(sc=>{
+      const n = sc==="All" ? items.length : items.filter(i=>i.scope===sc).length;
+      if(sc!=="All" && !n) return;
+      const b = el("button",null,sc+" · "+n); b.type="button"; b.setAttribute("aria-pressed", String(sc===scope));
+      b.addEventListener("click",()=>{ scope=sc; renderScopes(); renderList(); });
+      box.appendChild(b);
+    });
+  }
+
+  function card(it){
+    const c = el("article","card");
+    const top = el("div","c-top");
+    const t = el("div","c-title"); t.appendChild(el("h3",null,it.name)); t.appendChild(el("code","invoke",it.invoke)); top.appendChild(t);
+    const chips = el("div","chips");
+    chips.appendChild(el("span","chip status",it.status)); chips.appendChild(el("span","chip",it.kind)); chips.appendChild(el("span","chip",it.scope));
+    top.appendChild(chips); c.appendChild(top);
+    c.appendChild(el("p","summary",it.summary));
+
+    const sp = it.spend||{}; const tier = sp.tier||"low";
+    const spend = el("div","spend t-"+tier);
+    const m = el("div","meter"); const pips = el("div","pips");
+    for(let k=1;k<=3;k++){ const p=el("i"); if(k<=(TIERS[tier]||1)) p.className="on"; pips.appendChild(p); }
+    pips.setAttribute("aria-hidden","true"); m.appendChild(pips); m.appendChild(el("span","tier",tier)); spend.appendChild(m);
+    const dl = el("dl"); dl.appendChild(el("dt",null,"Idle")); dl.appendChild(el("dd",null,sp.idle||"—"));
+    dl.appendChild(el("dt",null,"Per use")); dl.appendChild(el("dd",null,sp.perUse||"—")); spend.appendChild(dl);
+    c.appendChild(spend);
+
+    const cols = el("div","cols");
+    [["Best for",list(null,it.bestFor)],["Avoid",list(null,it.avoid)],["How to use",list("how",it.howTo)]].forEach(([h,ul])=>{ const d=el("div"); d.appendChild(el("h4",null,h)); d.appendChild(ul); cols.appendChild(d); });
+    c.appendChild(cols);
+    if(it.notes) c.appendChild(el("p","note",it.notes));
+
+    const f = el("div","foot"); const src = it.source||{}; const href = ghLink(src.repo||"");
+    if(href){ const a=el("a",null,src.repo); a.href=href; a.target="_blank"; a.rel="noopener"; f.appendChild(a); } else f.appendChild(el("span",null,src.repo||""));
+    if(src.ref) f.appendChild(el("span","mono",src.ref)); if(src.license && src.license!=="—") f.appendChild(el("span",null,src.license));
+    if(it.installed) f.appendChild(el("span",null,"Installed "+it.installed));
+    c.appendChild(f);
+    return c;
+  }
+
+  function matches(it){
+    if(scope!=="All" && it.scope!==scope) return false;
+    if(!query) return true;
+    const hay = [it.name,it.invoke,it.summary,it.kind,it.scope,(it.bestFor||[]).join(" "),(it.howTo||[]).join(" "),(it.avoid||[]).join(" ")].join(" ").toLowerCase();
+    return query.split(/\s+/).every(w=>hay.includes(w));
+  }
+
+  function renderList(){
+    const box = $("list"); box.textContent = "";
+    const shown = items.filter(matches);
+    if(!shown.length){ box.appendChild(el("div","empty","No skills match. Clear the search or pick another scope.")); return; }
+    const groups = [...new Set(shown.map(i=>i.group||"General"))].sort((a,b)=>(GROUP_ORDER.indexOf(a)+99)%99-(GROUP_ORDER.indexOf(b)+99)%99);
+    groups.forEach(g=>{
+      box.appendChild(el("h2","group-h",g==="BernexApp"?"Project skills · BernexApp":g));
+      shown.filter(i=>(i.group||"General")===g)
+           .sort((a,b)=>(TIERS[b.spend&&b.spend.tier]||0)-(TIERS[a.spend&&a.spend.tier]||0) || a.name.localeCompare(b.name))
+           .forEach(it=>box.appendChild(card(it)));
+    });
+  }
+
+  function renderAll(){ renderStats(); renderScopes(); renderList(); }
+  $("q").addEventListener("input",e=>{ query=e.target.value.trim().toLowerCase(); renderList(); });
+  $("liveText").textContent = "Snapshot · "+snapshot.updated;
+  renderAll();
+
+  // Live catalog: one subscription to the "skills" collection.
+  (async ()=>{
+    const db = window.claude && window.claude.use ? await window.claude.use("db") : null;
+    if(!db) return;
+    db.collection("skills").onSnapshot(snap=>{
+      if(snap.empty) return;
+      items = snap.docs.filter(d=>d.exists).map(d=>Object.assign({id:d.id}, d.data()));
+      const latest = items.map(i=>i.installed||"").sort().pop();
+      $("live").classList.add("on"); $("liveText").textContent = "Live · "+items.length+" entries"+(latest?" · newest "+latest:"");
+      renderAll();
+    }, ()=>{ $("liveText").textContent = "Snapshot · live catalog unavailable"; });
+  })();
+})();
+</script>

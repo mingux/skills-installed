@@ -1,0 +1,382 @@
+{
+  "updated": "2026-10-17",
+  "skills": [
+    {
+      "id": "council",
+      "name": "Council of High Intelligence",
+      "invoke": "/council",
+      "kind": "Skill + 18 agents",
+      "scope": "Every project",
+      "group": "General",
+      "status": "Installed",
+      "source": {
+        "repo": "0xNyk/council-of-high-intelligence",
+        "ref": "bb42b4b (v1.2.0)",
+        "license": "MIT"
+      },
+      "installed": "2026-10-17",
+      "summary": "18 thinker personas (Feynman, Taleb, Munger, Torvalds, Socrates and more) deliberate a hard decision. They analyse blind first, cross-examine each other anonymously, then vote. A chairman writes the verdict, including what would prove it wrong and one concrete next step.",
+      "spend": {
+        "tier": "high",
+        "idle": "~650 tokens per session (the 18 agent descriptions). The skill itself loads only when you call it.",
+        "perUse": "--quick or --duo: ~50–90k tokens. Default (3 personas): ~120–250k. --full (all 18): ~1–1.5M, about 100× a normal answer."
+      },
+      "bestFor": [
+        "Decisions that are expensive to reverse: pricing, architecture, launch plans",
+        "\"Should multi-person splitting be free or Pro?\"-type product calls",
+        "Stress-testing a plan you're already leaning towards"
+      ],
+      "avoid": [
+        "Coding tasks, factual lookups, anything a test can answer",
+        "Questions already decided",
+        "--full: going from 3 to 18 personas costs a lot and adds little"
+      ],
+      "howTo": [
+        "/council --quick <question>   → cheapest real deliberation",
+        "/council --duo <question>     → two opposing personas",
+        "/council <question>           → default 3-persona panel, 3 rounds",
+        "/council --triad strategy <question>   → pick the panel",
+        "On the laptop add --no-auto-route to keep seats off your local Ollama model"
+      ],
+      "notes": "Local patches: runs only when you type /council; Codex seats are read-only; personas can't run shell commands. See skills/council/LOCAL_PATCHES.md.",
+      "idleTokens": 650
+    },
+    {
+      "id": "llm-council",
+      "name": "LLM Council (light)",
+      "invoke": "/llm-council",
+      "kind": "Skill",
+      "scope": "Every project",
+      "group": "General",
+      "status": "Installed",
+      "source": {
+        "repo": "own skill, adapted from karpathy/llm-council",
+        "ref": "a0e0194",
+        "license": "—"
+      },
+      "installed": "2026-07-11",
+      "summary": "Your original council, renamed so it doesn't clash with /council. Opus, Sonnet and Haiku each answer the question on their own, rank each other's answers anonymously, and the main session writes a synthesis.",
+      "spend": {
+        "tier": "medium",
+        "idle": "~115 tokens per session (description).",
+        "perUse": "About 6 subagent calls, roughly 60–120k tokens (estimate)."
+      },
+      "bestFor": [
+        "A quick second opinion from several models without personas or a formal verdict"
+      ],
+      "avoid": [
+        "Big decisions: use /council instead",
+        "Overlaps with /council --quick, so consider retiring one"
+      ],
+      "howTo": [
+        "/llm-council <question>"
+      ],
+      "notes": "Was called /council on the branch claude/github-skip-scope-investigation-7EiT4 and mirrored to the laptop. The setup script moves the old laptop copy to _conflicts.",
+      "idleTokens": 115
+    },
+    {
+      "id": "prompt-master",
+      "name": "Prompt Master",
+      "invoke": "Ask for a prompt, or /prompt-master",
+      "kind": "Skill",
+      "scope": "Every project",
+      "group": "General",
+      "status": "Installed",
+      "source": {
+        "repo": "nidhinjs/prompt-master",
+        "ref": "v1.7.0",
+        "license": "MIT"
+      },
+      "installed": "2026-07-13",
+      "summary": "Turns a rough idea into one paste-ready prompt tuned for a specific AI tool, such as Claude Code, Cursor, ChatGPT, Midjourney or Sora. It asks at most 3 clarifying questions, and for agent tools it adds file-scope limits, stop conditions and checkpoints.",
+      "spend": {
+        "tier": "low",
+        "idle": "~80 tokens per session (description).",
+        "perUse": "~7k tokens, plus up to ~6k when it loads its templates. About the cost of one normal answer."
+      },
+      "bestFor": [
+        "Mega-prompts for Claude Code or Cursor",
+        "Adapting a prompt for another AI tool",
+        "Fixing a prompt that keeps giving weak results"
+      ],
+      "avoid": [
+        "Nothing to avoid: it stays dormant unless you ask for a prompt"
+      ],
+      "howTo": [
+        "\"Write me a Claude Code prompt to …\" (starts automatically)",
+        "/prompt-master <rough idea>"
+      ],
+      "notes": "",
+      "idleTokens": 85
+    },
+    {
+      "id": "reverse-engineer-anything",
+      "name": "REA: Reverse Engineer Anything",
+      "invoke": "Ask Claude to use REA",
+      "kind": "Skill + MCP server",
+      "scope": "Every project",
+      "group": "General",
+      "status": "Run setup.ps1 on the laptop",
+      "source": {
+        "repo": "morluto/rea",
+        "ref": "bd3210e · rea-agents@6.5.0",
+        "license": "MIT"
+      },
+      "installed": "2026-10-17",
+      "summary": "Inspects shipped apps without their source code: native binaries, Electron/JavaScript apps, .NET, Android, firmware and websites. It explains how a feature works, with the evidence and limits behind each conclusion. Analysis runs locally.",
+      "spend": {
+        "tier": "variable",
+        "idle": "~75 tokens per session (skill description), plus the MCP tool list. That list is large (~180 tools), but Claude Code holds big tool sets back until needed.",
+        "perUse": "~6k tokens for the skill and up to ~13k for references when it loads them. Decompiled output can add 20–200k depending on the target."
+      },
+      "bestFor": [
+        "\"How does app X implement feature Y?\" on software you're allowed to analyse",
+        "Checking what's inside your own builds (SplitEven APK/AAB, Electron bundles)",
+        "Security review of your own shipped artifacts"
+      ],
+      "avoid": [
+        "Normal source repos (just read the code)",
+        "DRM or licence bypass, cheats, anything a target's terms forbid (see the project's DISCLAIMER)"
+      ],
+      "howTo": [
+        "Needs Node.js; setup.ps1 registers the 'rea' MCP server pinned to 6.5.0",
+        "For native binaries install Ghidra (free); Hopper is macOS-only",
+        "\"Use REA to analyse how <app> does <feature>\"",
+        "Check it's connected: claude mcp list"
+      ],
+      "notes": "Responsible-use policy in the upstream DISCLAIMER.md applies.",
+      "idleTokens": 75
+    },
+    {
+      "id": "openmontage",
+      "name": "OpenMontage",
+      "invoke": "Open Claude Code inside its folder",
+      "kind": "Workspace (49 skills)",
+      "scope": "Inside its folder",
+      "group": "Workspaces",
+      "status": "Run setup.ps1 on the laptop",
+      "source": {
+        "repo": "calesthio/OpenMontage",
+        "ref": "c806645",
+        "license": "AGPL-3.0"
+      },
+      "installed": "2026-10-17",
+      "summary": "A video production studio your coding agent runs: research, script, stock or AI-generated footage, narration, a Remotion edit and the final render. It ships 49 skills of its own that only load while you work inside its folder.",
+      "spend": {
+        "tier": "high",
+        "idle": "Nothing outside its folder. About 2k tokens of skill descriptions while you work in it.",
+        "perUse": "A full video run is token-heavy (estimate: several hundred k), plus provider charges if you use paid video or voice APIs. The free route uses stock footage and local tools."
+      },
+      "bestFor": [
+        "Promo and explainer videos, e.g. a 9:16 or Portuguese cut of the SplitEven launch video"
+      ],
+      "avoid": [
+        "Simple one-off edits (use ffmpeg)",
+        "Installing its 49 skills globally: they depend on its own tools",
+        "Face-swap or avatar features without the depicted person's consent"
+      ],
+      "howTo": [
+        "cd \"C:\\Dev\\Skills Installed\\workspaces\\OpenMontage\"",
+        "Follow its README Quick Start (Python venv + requirements, Node for remotion-composer, ffmpeg)",
+        "Copy .env.example to .env and add only the keys you'll use",
+        "Run claude there and describe the video"
+      ],
+      "notes": "Cloned by setup.ps1 at the reviewed commit; not stored in this repo (AGPL, 92 MB).",
+      "idleTokens": 0
+    },
+    {
+      "id": "vibe-code-audit",
+      "name": "Vibe-code audit",
+      "invoke": "\"Does this look AI-generated?\"",
+      "kind": "Skill",
+      "scope": "Every project",
+      "group": "General",
+      "status": "On laptop: moved in by setup.ps1",
+      "source": {
+        "repo": "Anthropic skill (installed 2026-10-01 in a SplitEven session)",
+        "ref": "—",
+        "license": "—"
+      },
+      "installed": "2026-10-01",
+      "summary": "Audits a web app for the tell-tale signs it was \"vibe-coded\" and fixes them: preview domains, missing metadata and social previews, missing 404, loading and empty states, console noise, bundle bloat, responsive breakage and dead links.",
+      "spend": {
+        "tier": "medium",
+        "idle": "~100 tokens per session (description).",
+        "perUse": "Not measured. It reads the app and makes fixes, so expect the cost of a medium coding task."
+      },
+      "bestFor": [
+        "Pre-launch polish pass on a website or web app",
+        "\"Does this look professional?\""
+      ],
+      "avoid": [
+        "Backend-only code"
+      ],
+      "howTo": [
+        "\"Run a vibe-code audit on landing/\"",
+        "Used on spliteven.ai on 2026-10-01"
+      ],
+      "notes": "Lives on the laptop; details will be confirmed after setup.ps1 imports it.",
+      "idleTokens": 100
+    },
+    {
+      "id": "add-api-endpoint",
+      "name": "Add API endpoint",
+      "invoke": "\"Add an endpoint for …\"",
+      "kind": "Project skill",
+      "scope": "BernexApp only",
+      "group": "BernexApp",
+      "status": "In BernexApp (unmerged branch)",
+      "source": {
+        "repo": "own skill",
+        "ref": "branch claude/github-skip-scope-investigation-7EiT4",
+        "license": "—"
+      },
+      "installed": "2026-07-11",
+      "summary": "Adds a REST endpoint end-to-end: Zod schema in shared-types, Express router, mounting, and the mobile apiFetch call.",
+      "spend": {
+        "tier": "low",
+        "idle": "~80 tokens per session, in BernexApp sessions only.",
+        "perUse": "~700 tokens of instructions plus the coding work itself."
+      },
+      "bestFor": [
+        "New backend routes the app or admin will call"
+      ],
+      "avoid": [
+        "Other projects"
+      ],
+      "howTo": [
+        "\"Add an endpoint to list offers by category\""
+      ],
+      "notes": "A safekeeping copy is in project-skills/bernexapp/.",
+      "idleTokens": 80
+    },
+    {
+      "id": "db-schema-change",
+      "name": "DB schema change",
+      "invoke": "\"Add a field to …\"",
+      "kind": "Project skill",
+      "scope": "BernexApp only",
+      "group": "BernexApp",
+      "status": "In BernexApp (unmerged branch)",
+      "source": {
+        "repo": "own skill",
+        "ref": "branch claude/github-skip-scope-investigation-7EiT4",
+        "license": "—"
+      },
+      "installed": "2026-07-11",
+      "summary": "Changes the Prisma schema safely and propagates the change: db push/migrate, Zod schemas, rebuilding shared types.",
+      "spend": {
+        "tier": "low",
+        "idle": "~95 tokens per session, in BernexApp sessions only.",
+        "perUse": "~750 tokens of instructions plus the work."
+      },
+      "bestFor": [
+        "Any column, table, relation or index change"
+      ],
+      "avoid": [
+        "Other projects"
+      ],
+      "howTo": [
+        "\"Add a 'verifiedAt' column to User\""
+      ],
+      "notes": "The handover flags a missing Prisma migrations baseline before the first production deploy.",
+      "idleTokens": 95
+    },
+    {
+      "id": "mobile-offline-flow",
+      "name": "Mobile offline flow",
+      "invoke": "\"Make X work offline\"",
+      "kind": "Project skill",
+      "scope": "BernexApp only",
+      "group": "BernexApp",
+      "status": "In BernexApp (unmerged branch)",
+      "source": {
+        "repo": "own skill",
+        "ref": "branch claude/github-skip-scope-investigation-7EiT4",
+        "license": "—"
+      },
+      "installed": "2026-07-11",
+      "summary": "Implements or debugs the offline-first draft queue: AsyncStorage drafts that are sent when the network returns.",
+      "spend": {
+        "tier": "low",
+        "idle": "~125 tokens per session, in BernexApp sessions only.",
+        "perUse": "~850 tokens of instructions plus the work."
+      },
+      "bestFor": [
+        "Offline signalements, retry on reconnect"
+      ],
+      "avoid": [
+        "Other projects"
+      ],
+      "howTo": [
+        "\"Make event RSVPs work offline\""
+      ],
+      "notes": "",
+      "idleTokens": 125
+    },
+    {
+      "id": "pre-deploy-check",
+      "name": "Pre-deploy check",
+      "invoke": "\"Ready to deploy?\"",
+      "kind": "Project skill",
+      "scope": "BernexApp only",
+      "group": "BernexApp",
+      "status": "In BernexApp (unmerged branch)",
+      "source": {
+        "repo": "own skill",
+        "ref": "branch claude/github-skip-scope-investigation-7EiT4",
+        "license": "—"
+      },
+      "installed": "2026-07-11",
+      "summary": "Walks the Bernex deploy checklist before production: Swiss data residency env vars, secrets, privacy URL and EAS IDs.",
+      "spend": {
+        "tier": "low",
+        "idle": "~90 tokens per session, in BernexApp sessions only.",
+        "perUse": "~650 tokens of instructions plus the checks."
+      },
+      "bestFor": [
+        "Before any production release"
+      ],
+      "avoid": [
+        "Other projects"
+      ],
+      "howTo": [
+        "\"Run the pre-deploy check for the API\""
+      ],
+      "notes": "Already flagged placeholder IDs in eas.json.",
+      "idleTokens": 90
+    },
+    {
+      "id": "scraper-run",
+      "name": "Scraper run",
+      "invoke": "\"Scrape the news\"",
+      "kind": "Project skill",
+      "scope": "BernexApp only",
+      "group": "BernexApp",
+      "status": "In BernexApp (unmerged branch)",
+      "source": {
+        "repo": "own skill",
+        "ref": "branch claude/github-skip-scope-investigation-7EiT4",
+        "license": "—"
+      },
+      "installed": "2026-07-11",
+      "summary": "Runs a bernex.ch scraper (news, events or the waste calendar) into the moderation queue and reports what was staged.",
+      "spend": {
+        "tier": "low",
+        "idle": "~95 tokens per session, in BernexApp sessions only.",
+        "perUse": "~650 tokens of instructions plus the run."
+      },
+      "bestFor": [
+        "Refreshing content from bernex.ch"
+      ],
+      "avoid": [
+        "Other projects"
+      ],
+      "howTo": [
+        "\"Refresh the waste schedule\""
+      ],
+      "notes": "",
+      "idleTokens": 95
+    }
+  ]
+}
