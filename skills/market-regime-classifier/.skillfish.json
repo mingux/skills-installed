@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "name": "market-regime-classifier",
+  "owner": "mahmoud20138",
+  "repo": "tradecraft",
+  "path": "plugins/tradecraft/skills/market-regime-classifier",
+  "branch": "main",
+  "sha": "5614349d292fdc7ada1788d98bc679a68d20b47a",
+  "source": "manual"
+}

@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "name": "liquidity-analysis",
+  "owner": "mahmoud20138",
+  "repo": "tradecraft",
+  "path": "plugins/tradecraft/skills/liquidity-analysis",
+  "branch": "main",
+  "sha": "2e7d35712638634dc074a35d6a8398fd35de2dbd",
+  "source": "manual"
+}

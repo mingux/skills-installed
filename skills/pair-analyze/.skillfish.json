@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "name": "pair-analyze",
+  "owner": "mahmoud20138",
+  "repo": "tradecraft",
+  "path": "plugins/tradecraft/skills/pair-analyze",
+  "branch": "main",
+  "sha": "2a61c7e58e170d405ce30c277ab726d42ce8a5fb",
+  "source": "manual"
+}

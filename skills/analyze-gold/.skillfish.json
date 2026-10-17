@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "name": "analyze-gold",
+  "owner": "mahmoud20138",
+  "repo": "tradecraft",
+  "path": "plugins/tradecraft/skills/analyze-gold",
+  "branch": "main",
+  "sha": "df6141fa5e8e082445b5be1676be090bce3b5495",
+  "source": "manual"
+}

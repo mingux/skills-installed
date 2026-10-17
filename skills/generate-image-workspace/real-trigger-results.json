@@ -1,0 +1,142 @@
+[
+  {
+    "query": "can you make me a desktop wallpaper? mountains at dusk, kinda moody, 16:9",
+    "should_trigger": true,
+    "triggered": true,
+    "first_tool": "Skill",
+    "pass": true
+  },
+  {
+    "query": "make a picture of a golden retriever wearing a tiny wizard hat lol",
+    "should_trigger": true,
+    "triggered": true,
+    "first_tool": "Skill",
+    "pass": true
+  },
+  {
+    "query": "generate an image of a red dragon curled around a chessboard, fantasy book cover style",
+    "should_trigger": true,
+    "triggered": true,
+    "first_tool": "Skill",
+    "pass": true
+  },
+  {
+    "query": "i need a hero image for my 3d printing app website - cozy maker desk with a printer, warm light",
+    "should_trigger": true,
+    "triggered": true,
+    "first_tool": "Skill",
+    "pass": true
+  },
+  {
+    "query": "need an illustration of a cartoon rocket ship for my kid's birthday invite, bright colors",
+    "should_trigger": true,
+    "triggered": true,
+    "first_tool": "Skill",
+    "pass": true
+  },
+  {
+    "query": "render a product-shot style image of a perfume bottle on black marble, studio lighting",
+    "should_trigger": true,
+    "triggered": true,
+    "first_tool": "Skill",
+    "pass": true
+  },
+  {
+    "query": "create some ai art of a cyberpunk street market, neon signs, rain",
+    "should_trigger": true,
+    "triggered": true,
+    "first_tool": "Skill",
+    "pass": true
+  },
+  {
+    "query": "logo concept for 'ForgeWorks' - blacksmith hammer plus a gear, flat minimal, just want to see ideas",
+    "should_trigger": true,
+    "triggered": true,
+    "first_tool": "Skill",
+    "pass": true
+  },
+  {
+    "query": "mockup the settings page for shapeforge in html, same style as design-mockups.html",
+    "should_trigger": false,
+    "triggered": false,
+    "first_tool": "Skill",
+    "pass": true
+  },
+  {
+    "query": "gimme a seamless worn leather texture i can use as a material in blender",
+    "should_trigger": true,
+    "triggered": true,
+    "first_tool": "Skill",
+    "pass": true
+  },
+  {
+    "query": "make me a chart of my monthly filament spending, data is in spend.csv",
+    "should_trigger": false,
+    "triggered": false,
+    "first_tool": "Glob",
+    "pass": true
+  },
+  {
+    "query": "I want an isometric tiny house picture, pastel colors, going in a slide deck",
+    "should_trigger": true,
+    "triggered": true,
+    "first_tool": "Skill",
+    "pass": true
+  },
+  {
+    "query": "resize all the pngs in ./assets to 512px wide",
+    "should_trigger": false,
+    "triggered": false,
+    "first_tool": "Glob",
+    "pass": true
+  },
+  {
+    "query": "remove the background from photo.png in my downloads folder",
+    "should_trigger": false,
+    "triggered": true,
+    "first_tool": "Skill",
+    "pass": false
+  },
+  {
+    "query": "can you draw an svg diagram of the auth flow between the app and the api",
+    "should_trigger": false,
+    "triggered": false,
+    "first_tool": "Glob",
+    "pass": true
+  },
+  {
+    "query": "generate a 3d model of a phone stand i can print on the h2s",
+    "should_trigger": false,
+    "triggered": false,
+    "first_tool": "PowerShell",
+    "pass": true
+  },
+  {
+    "query": "whats the best ai image generator in 2026? worth paying for midjourney?",
+    "should_trigger": false,
+    "triggered": false,
+    "first_tool": "ToolSearch",
+    "pass": true
+  },
+  {
+    "query": "take a screenshot of the app and tell me if the layout looks off",
+    "should_trigger": false,
+    "triggered": false,
+    "first_tool": "Skill",
+    "pass": true
+  },
+  {
+    "query": "write alt text for the three images on my landing page",
+    "should_trigger": false,
+    "triggered": false,
+    "first_tool": "Glob",
+    "pass": true
+  },
+  {
+    "query": "add a favicon to the shapeforge app, hexagon like the logo",
+    "should_trigger": false,
+    "triggered": false,
+    "first_tool": "Glob",
+    "pass": true
+  }
+]
