@@ -3,3 +3,5 @@ _conflicts/
 _imported-*.txt
 workspaces/*/
 !workspaces/README.md
+__pycache__/
+*.pyc

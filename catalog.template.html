@@ -80,17 +80,61 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
 .note{font-size:13px;color:var(--muted);margin:0}
 .empty{background:var(--surface);border:1px dashed var(--line);border-radius:14px;padding:24px;text-align:center;color:var(--muted)}
 .page-foot{font-size:12.5px;color:var(--muted);max-width:80ch}
+.sec-h{font-size:22px;font-weight:700;margin:0 0 4px}
+.sec-sub{margin:0 0 12px;color:var(--muted);font-size:14px;max-width:80ch}
+.callrules{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin-bottom:12px}
+.rule{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:13.5px}
+.rule b{display:block;font-family:"Familjen Grotesk",sans-serif;font-size:15px;margin-bottom:2px}
+.qref{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:14px}
+.qref table{border-collapse:collapse;width:100%;min-width:720px;font-size:13.5px}
+.qref th,.qref td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+.qref th{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:600;position:sticky;top:0;background:var(--surface)}
+.qref tr.grp td{background:var(--sunk);font-weight:600;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:6px 12px}
+.qref tr:last-child td{border-bottom:0}
+.qref code{background:var(--sunk);padding:2px 7px;border-radius:6px;white-space:nowrap}
+.qref .say{color:var(--muted)}
+.qref a{color:var(--ink);text-decoration:none;font-weight:600}
+.qref a:hover{color:var(--accent)}
+.badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 8px;border-radius:999px}
+.badge.t-low{background:var(--t-low-s);color:var(--t-low)} .badge.t-medium{background:var(--t-medium-s);color:var(--t-medium)}
+.badge.t-high{background:var(--t-high-s);color:var(--t-high)} .badge.t-variable{background:var(--t-variable-s);color:var(--t-variable)}
+.manual{font-size:11px;color:var(--muted);margin-left:6px}
+.attention{display:flex;flex-direction:column;gap:8px}
+.att{background:var(--t-medium-s);border-radius:10px;padding:10px 14px;font-size:14px;display:flex;flex-wrap:wrap;gap:4px 10px}
+.att.broken{background:var(--t-high-s)}
+.att b{font-weight:600}
+.att a{color:var(--ink)}
+.att span{color:var(--muted)}
+.card{scroll-margin-top:16px}
 </style>
 
 <div class="wrap">
   <header>
     <h1>Skills Installed</h1>
-    <p class="lede">Every Claude Code skill in <code>C:\Dev\Skills Installed</code>: what it does, what it costs in tokens, when it's worth it, and how to start it.</p>
+    <p class="lede">Every Claude Code skill in <code>C:\Dev\Skills Installed</code>: how to call it, what it does, what it costs in tokens, and when it's worth it.</p>
     <span class="live" id="live" role="status"><i></i><span id="liveText">Snapshot</span></span>
   </header>
 
   <section class="stats" aria-label="Summary" id="stats"></section>
 
+  <section aria-labelledby="att-h" id="attWrap">
+    <h2 class="sec-h" id="att-h">Needs attention</h2>
+    <div class="attention" id="attention"></div>
+  </section>
+
+  <section aria-labelledby="call-h">
+    <h2 class="sec-h" id="call-h">How to call them</h2>
+    <p class="sec-sub">Every skill is listed here with the exact command. Click a name for its full card.</p>
+    <div class="callrules">
+      <div class="rule"><b>Type <code>/</code> + the name</b>Any skill starts on demand: <code>/council --quick …</code>, <code>/prompt-master …</code>. In Claude Code, type <code>/</code> to see the list.</div>
+      <div class="rule"><b>Or just ask</b>Most skills start by themselves when your request matches what they do, e.g. "write me a Cursor prompt" starts prompt-master.</div>
+      <div class="rule"><b>Manual-only</b>Expensive ones (<code>/council</code>, <code>/anatomy</code>) never start by themselves. You must type the command.</div>
+      <div class="rule"><b>Agents and workspaces</b>Agents run when you name them ("use the planner agent…"). Workspace skills load only when you open Claude Code inside that folder.</div>
+    </div>
+    <div class="qref"><table><thead><tr><th>Skill</th><th>Call it with</th><th>Or just say</th><th>Spend</th><th>Where</th></tr></thead><tbody id="qref"></tbody></table></div>
+  </section>
+
+  <h2 class="sec-h">Every skill in detail</h2>
   <section class="tools" aria-label="Filter">
     <div class="seg" id="scopes"></div>
     <input type="search" id="q" placeholder="Search skills, uses, commands…" aria-label="Search skills">
@@ -113,7 +157,39 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
   const $ = (id) => document.getElementById(id);
   const snapshot = JSON.parse($("snapshot").textContent);
   const TIERS = {low:1, medium:2, high:3, variable:2};
-  const GROUP_ORDER = ["General","Workspaces","BernexApp"];
+  const GROUP_ORDER = ["General","Design","Cloudflare","Trading","Agents","Workspaces","BernexApp"];
+  const GROUP_LABEL = {BernexApp:"Project skills · BernexApp"};
+  const groupIdx = (g)=>{ const i=GROUP_ORDER.indexOf(g); return i<0?99:i; };
+  const anchor = (id)=>"skill-"+id;
+
+  function renderQref(){
+    const tb = $("qref"); tb.textContent = "";
+    const sorted = items.slice().sort((a,b)=>groupIdx(a.group||"General")-groupIdx(b.group||"General") || a.name.localeCompare(b.name));
+    let last = null;
+    sorted.forEach(it=>{
+      const g = it.group||"General";
+      if(g!==last){ const r=el("tr","grp"); const td=el("td",null,GROUP_LABEL[g]||g); td.colSpan=5; r.appendChild(td); tb.appendChild(r); last=g; }
+      const tr = el("tr");
+      const n = el("td"); const a = el("a",null,it.name); a.href="#"+anchor(it.id); n.appendChild(a); tr.appendChild(n);
+      const c = el("td"); if(it.slash){ c.appendChild(el("code",null,it.slash)); if(it.manual) c.appendChild(el("span","manual","manual-only")); } else c.appendChild(el("span","say","—")); tr.appendChild(c);
+      tr.appendChild(el("td","say", it.invoke && !it.invoke.startsWith("/") ? it.invoke : (it.howTo&&it.howTo[0])||""));
+      const sp = el("td"); const t=(it.spend&&it.spend.tier)||"low"; sp.appendChild(el("span","badge t-"+t,t)); tr.appendChild(sp);
+      tr.appendChild(el("td","say",it.scope));
+      tb.appendChild(tr);
+    });
+  }
+
+  function renderAttention(){
+    const box = $("attention"); box.textContent = "";
+    const flagged = items.filter(i=>/review|broken|repair/i.test(i.status||""));
+    $("attWrap").hidden = !flagged.length;
+    flagged.forEach(i=>{
+      const d = el("div","att"+(/broken|repair/i.test(i.status)?" broken":""));
+      const a = el("a"); a.href="#"+anchor(i.id); a.appendChild(el("b",null,i.name)); d.appendChild(a);
+      d.appendChild(el("span",null,i.status)); d.appendChild(el("span",null,i.notes || (i.avoid&&i.avoid[0]) || ""));
+      box.appendChild(d);
+    });
+  }
   const SCOPES = ["All","Every project","Inside its folder","BernexApp only"];
   let items = snapshot.skills.slice();
   let scope = "All", query = "";
@@ -126,11 +202,11 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
     const s = $("stats"); s.textContent = "";
     const every = items.filter(i=>i.scope==="Every project");
     const idle = every.reduce((a,i)=>a+(Number(i.idleTokens)||0),0);
-    const heavy = items.filter(i=>i.spend && i.spend.tier==="high").map(i=>i.invoke.startsWith("/")?i.invoke:i.name);
+    const heavy = items.filter(i=>i.spend && i.spend.tier==="high").map(i=>i.slash||i.name);
     [[items.length, "installed skills, agents packs and workspaces"],
      [every.length, "load in every project"],
      ["~"+(idle>=1000?(idle/1000).toFixed(1)+"k":idle), "idle tokens per session, before you use any of them"],
-     [heavy.length, "high-spend: "+(heavy.join(", ")||"none")]
+     [heavy.length, "high-spend skills, best used deliberately"]
     ].forEach(([n,l])=>{ const d=el("div","stat"); d.appendChild(el("b",null,String(n))); d.appendChild(el("span",null,l)); s.appendChild(d); });
   }
 
@@ -146,7 +222,7 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
   }
 
   function card(it){
-    const c = el("article","card");
+    const c = el("article","card"); c.id = anchor(it.id);
     const top = el("div","c-top");
     const t = el("div","c-title"); t.appendChild(el("h3",null,it.name)); t.appendChild(el("code","invoke",it.invoke)); top.appendChild(t);
     const chips = el("div","chips");
@@ -187,16 +263,16 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
     const box = $("list"); box.textContent = "";
     const shown = items.filter(matches);
     if(!shown.length){ box.appendChild(el("div","empty","No skills match. Clear the search or pick another scope.")); return; }
-    const groups = [...new Set(shown.map(i=>i.group||"General"))].sort((a,b)=>(GROUP_ORDER.indexOf(a)+99)%99-(GROUP_ORDER.indexOf(b)+99)%99);
+    const groups = [...new Set(shown.map(i=>i.group||"General"))].sort((a,b)=>groupIdx(a)-groupIdx(b));
     groups.forEach(g=>{
-      box.appendChild(el("h2","group-h",g==="BernexApp"?"Project skills · BernexApp":g));
+      box.appendChild(el("h2","group-h",GROUP_LABEL[g]||g));
       shown.filter(i=>(i.group||"General")===g)
            .sort((a,b)=>(TIERS[b.spend&&b.spend.tier]||0)-(TIERS[a.spend&&a.spend.tier]||0) || a.name.localeCompare(b.name))
            .forEach(it=>box.appendChild(card(it)));
     });
   }
 
-  function renderAll(){ renderStats(); renderScopes(); renderList(); }
+  function renderAll(){ renderStats(); renderAttention(); renderQref(); renderScopes(); renderList(); }
   $("q").addEventListener("input",e=>{ query=e.target.value.trim().toLowerCase(); renderList(); });
   $("liveText").textContent = "Snapshot · "+snapshot.updated;
   renderAll();

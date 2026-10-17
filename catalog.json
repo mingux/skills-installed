@@ -2,6 +2,42 @@
   "updated": "2026-10-17",
   "skills": [
     {
+      "id": "agent-reach",
+      "name": "Agent Reach",
+      "invoke": "\"What does Reddit say about …\"",
+      "kind": "Skill",
+      "scope": "Every project",
+      "group": "General",
+      "status": "Installed",
+      "source": {
+        "repo": "installed on the laptop before the move",
+        "ref": "—",
+        "license": "—"
+      },
+      "installed": "before 2026-10-17",
+      "summary": "Pulls content from platforms that ordinary web fetching handles badly (Reddit, X/Twitter, YouTube, Bilibili and other social or community sites) through the agent-reach command-line tool.",
+      "idleTokens": 180,
+      "spend": {
+        "tier": "medium",
+        "idle": "~180 tokens per session (description).",
+        "perUse": "~1.7k tokens of instructions plus the platform guide it opens (up to ~5k) and whatever it fetches."
+      },
+      "bestFor": [
+        "Research across Reddit, X and YouTube threads or transcripts",
+        "Sentiment checks before a launch or a trade"
+      ],
+      "avoid": [
+        "Ordinary websites: normal fetching is cheaper"
+      ],
+      "howTo": [
+        "\"Summarise what Reddit says about SplitEven competitors\"",
+        "Run agent-reach doctor if a platform fails"
+      ],
+      "notes": "Needs the agent-reach CLI installed and configured on the laptop.",
+      "slash": "/agent-reach",
+      "manual": false
+    },
+    {
       "id": "council",
       "name": "Council of High Intelligence",
       "invoke": "/council",
@@ -39,7 +75,80 @@
         "On the laptop add --no-auto-route to keep seats off your local Ollama model"
       ],
       "notes": "Local patches: runs only when you type /council; Codex seats are read-only; personas can't run shell commands. See skills/council/LOCAL_PATCHES.md.",
-      "idleTokens": 650
+      "idleTokens": 650,
+      "slash": "/council",
+      "manual": true
+    },
+    {
+      "id": "find-skills",
+      "name": "Find Skills",
+      "invoke": "\"Is there a skill for …?\"",
+      "kind": "Skill",
+      "scope": "Every project",
+      "group": "General",
+      "status": "Installed",
+      "source": {
+        "repo": "installed on the laptop before the move",
+        "ref": "—",
+        "license": "—"
+      },
+      "installed": "before 2026-10-17",
+      "summary": "Searches the open skills ecosystem and installs skills through npx skills. Because ~/.claude/skills points at this folder, what it installs lands here.",
+      "idleTokens": 75,
+      "spend": {
+        "tier": "low",
+        "idle": "~75 tokens per session (description).",
+        "perUse": "~1.4k tokens of instructions plus search results."
+      },
+      "bestFor": [
+        "Finding an existing skill before building one"
+      ],
+      "avoid": [
+        "Installing without review: ask Claude to review before it installs (see CLAUDE.md)"
+      ],
+      "howTo": [
+        "\"Find a skill for filling PDF forms\""
+      ],
+      "notes": "",
+      "slash": "/find-skills",
+      "manual": false
+    },
+    {
+      "id": "graphify",
+      "name": "Graphify",
+      "invoke": "/graphify-windows",
+      "kind": "Skill",
+      "scope": "Every project",
+      "group": "General",
+      "status": "Installed",
+      "source": {
+        "repo": "installed on the laptop before the move",
+        "ref": "—",
+        "license": "—"
+      },
+      "installed": "before 2026-10-17",
+      "summary": "Builds a knowledge graph of a codebase (graphify-out/) and answers architecture and file-relationship questions from the graph instead of re-reading files.",
+      "idleTokens": 88,
+      "spend": {
+        "tier": "medium",
+        "idle": "~88 tokens per session (description).",
+        "perUse": "~8.5k tokens of instructions plus up to ~8.6k of guides."
+      },
+      "bestFor": [
+        "Large unfamiliar codebases",
+        "\"How do these modules connect?\""
+      ],
+      "avoid": [
+        "Small repos where reading the files is quicker",
+        "Its trigger is broad (\"any question about a codebase\"), so it may start more often than you expect"
+      ],
+      "howTo": [
+        "\"graphify this repo\", then ask architecture questions",
+        "/graphify-windows"
+      ],
+      "notes": "Folder is graphify, but the skill's name is graphify-windows. Needs the graphify CLI.",
+      "slash": "/graphify-windows",
+      "manual": false
     },
     {
       "id": "llm-council",
@@ -72,7 +181,9 @@
         "/llm-council <question>"
       ],
       "notes": "Was called /council on the branch claude/github-skip-scope-investigation-7EiT4 and mirrored to the laptop. The setup script moves the old laptop copy to _conflicts.",
-      "idleTokens": 115
+      "idleTokens": 115,
+      "slash": "/llm-council",
+      "manual": false
     },
     {
       "id": "prompt-master",
@@ -107,7 +218,9 @@
         "/prompt-master <rough idea>"
       ],
       "notes": "",
-      "idleTokens": 85
+      "idleTokens": 85,
+      "slash": "/prompt-master",
+      "manual": false
     },
     {
       "id": "reverse-engineer-anything",
@@ -145,7 +258,799 @@
         "Check it's connected: claude mcp list"
       ],
       "notes": "Responsible-use policy in the upstream DISCLAIMER.md applies.",
-      "idleTokens": 75
+      "idleTokens": 75,
+      "slash": "/reverse-engineer-anything",
+      "manual": false
+    },
+    {
+      "id": "task-observer",
+      "name": "Task Observer",
+      "invoke": "Starts by itself",
+      "kind": "Skill",
+      "scope": "Every project",
+      "group": "General",
+      "status": "Installed · review",
+      "source": {
+        "repo": "installed on the laptop before the move",
+        "ref": "—",
+        "license": "—"
+      },
+      "installed": "before 2026-10-17",
+      "summary": "Watches multi-step work for chances to improve your skills and suggests improvements as it goes.",
+      "idleTokens": 250,
+      "spend": {
+        "tier": "high",
+        "idle": "~250 tokens per session (description).",
+        "perUse": "~18.4k tokens of instructions, loaded into almost every substantial task because it triggers on \"ANY multi-step task\"."
+      },
+      "bestFor": [
+        "Deliberate sessions where you want skill-improvement notes"
+      ],
+      "avoid": [
+        "Everyday work: it adds ~18k tokens to nearly every serious task"
+      ],
+      "howTo": [
+        "Starts automatically on multi-step tasks",
+        "Recommended: make it manual-only (disable-model-invocation)"
+      ],
+      "notes": "The biggest hidden cost in the folder.",
+      "slash": "/task-observer",
+      "manual": false
+    },
+    {
+      "id": "anatomy",
+      "name": "Anatomy",
+      "invoke": "/anatomy",
+      "kind": "Skill",
+      "scope": "Every project",
+      "group": "Design",
+      "status": "Installed",
+      "source": {
+        "repo": "wheresryan22/anatomy",
+        "ref": "e948829",
+        "license": "MIT"
+      },
+      "installed": "2026-10-17",
+      "idleTokens": 0,
+      "summary": "Builds a highly detailed, interactive isometric figure that explains a technical idea as a real working object, such as a test rig, a dial gauge or an engine on a stand. Parts move from a live model, the shading is in four tones, and optional WebGL effects (fire, water, light) sit in the same perspective.",
+      "spend": {
+        "tier": "high",
+        "idle": "~0 tokens: it's manual-only, so its description isn't listed for the model.",
+        "perUse": "~7.9k tokens of instructions plus whichever of its ~76k tokens of references it opens. The author calls a figure \"a long session\" (build, geometry audit, close-ups in both themes). Expect hundreds of thousands of tokens per figure (estimate)."
+      },
+      "bestFor": [
+        "A hero explainer for a landing page or docs (\"how SplitEven splits a receipt\" as a machine)",
+        "Interactive figures that show how a system works"
+      ],
+      "avoid": [
+        "Quick diagrams: use Mermaid or a simple SVG",
+        "Anything on a deadline: it's slow on purpose"
+      ],
+      "howTo": [
+        "/anatomy <what the figure should explain>",
+        "Needs Node.js 20.10+ and Chrome or Chromium for its checks",
+        "Open the closest example in skills/anatomy/examples first"
+      ],
+      "notes": "Local patch: manual-only (/anatomy). Gallery publishing happens only if you ask.",
+      "slash": "/anatomy",
+      "manual": true
+    },
+    {
+      "id": "generate-image",
+      "name": "Generate Image",
+      "invoke": "\"Generate an image of …\"",
+      "kind": "Skill",
+      "scope": "Every project",
+      "group": "Design",
+      "status": "Installed",
+      "source": {
+        "repo": "installed on the laptop before the move",
+        "ref": "—",
+        "license": "—"
+      },
+      "installed": "before 2026-10-17",
+      "summary": "Text-to-image through the muapi.ai API, using your PowerShell script at C:\\Dev\\Open-Higgsfield-AI\\generate-image.ps1.",
+      "idleTokens": 179,
+      "spend": {
+        "tier": "low",
+        "idle": "~179 tokens per session (description).",
+        "perUse": "~1.1k tokens of instructions plus muapi.ai charges per image."
+      },
+      "bestFor": [
+        "Quick illustrations or app imagery"
+      ],
+      "avoid": [
+        "Bulk generation without checking the per-image price"
+      ],
+      "howTo": [
+        "\"Generate a hero image for the landing page\""
+      ],
+      "notes": "Only works on the laptop (script path). Paid API. Its test workspace (generate-image-workspace) sits in skills/ but isn't a skill.",
+      "slash": "/generate-image",
+      "manual": false
+    },
+    {
+      "id": "ui-ux-pro-max",
+      "name": "UI/UX Pro Max",
+      "invoke": "\"Design a … screen\"",
+      "kind": "Skill",
+      "scope": "Every project",
+      "group": "Design",
+      "status": "Broken · needs repair",
+      "source": {
+        "repo": "installed on the laptop before the move",
+        "ref": "—",
+        "license": "—"
+      },
+      "installed": "before 2026-10-17",
+      "summary": "UI/UX design knowledge for web and mobile: 50+ styles, 161 palettes, 57 font pairings, 99 UX guidelines and chart types, looked up through a local search script.",
+      "idleTokens": 229,
+      "spend": {
+        "tier": "medium",
+        "idle": "~229 tokens per session (description).",
+        "perUse": "~11.2k tokens of instructions plus its searches."
+      },
+      "bestFor": [
+        "Picking a visual style, palette or font pairing",
+        "Design reviews against UX guidelines"
+      ],
+      "avoid": [
+        "Until repaired: its data and scripts folders were links that didn't survive the move"
+      ],
+      "howTo": [
+        "\"Suggest a palette and fonts for a fintech app\""
+      ],
+      "notes": "data/ and scripts/ are dangling links (../../../src/ui-ux-pro-max/…). Restore them from the upstream repo.",
+      "slash": "/ui-ux-pro-max",
+      "manual": false
+    },
+    {
+      "id": "vibe-code-audit",
+      "name": "Vibe-code audit",
+      "invoke": "\"Does this look AI-generated?\"",
+      "kind": "Skill",
+      "scope": "Every project",
+      "group": "Design",
+      "status": "Installed",
+      "source": {
+        "repo": "installed on the laptop before the move",
+        "ref": "—",
+        "license": "—"
+      },
+      "installed": "before 2026-10-17",
+      "summary": "Audits a web app for the tell-tale signs it was \"vibe-coded\" and fixes them: preview domains, missing metadata and social previews, missing 404, loading and empty states, console noise, bundle bloat, responsive breakage and dead links.",
+      "idleTokens": 166,
+      "spend": {
+        "tier": "medium",
+        "idle": "~166 tokens per session (description).",
+        "perUse": "~2.4k tokens of instructions plus ~2k of references, a scan.sh run and the fixes."
+      },
+      "bestFor": [
+        "Pre-launch polish on a website or web app"
+      ],
+      "avoid": [
+        "Backend-only code"
+      ],
+      "howTo": [
+        "\"Run a vibe-code audit on landing/\""
+      ],
+      "notes": "Used on spliteven.ai on 2026-10-01.",
+      "slash": "/vibe-code-audit",
+      "manual": false
+    },
+    {
+      "id": "web-perf",
+      "name": "Web Perf",
+      "invoke": "\"Why is this page slow?\"",
+      "kind": "Skill",
+      "scope": "Every project",
+      "group": "Design",
+      "status": "Installed",
+      "source": {
+        "repo": "installed on the laptop before the move",
+        "ref": "—",
+        "license": "—"
+      },
+      "installed": "before 2026-10-17",
+      "summary": "Measures Core Web Vitals (LCP, INP, CLS) and supporting metrics through the Chrome DevTools MCP, finds the bottlenecks and suggests fixes.",
+      "idleTokens": 113,
+      "spend": {
+        "tier": "medium",
+        "idle": "~113 tokens per session (description).",
+        "perUse": "~2.0k tokens of instructions plus performance traces."
+      },
+      "bestFor": [
+        "Pre-launch performance pass on spliteven.ai or the dashboard"
+      ],
+      "avoid": [
+        "Without the Chrome DevTools MCP connected: it can't measure anything"
+      ],
+      "howTo": [
+        "\"Run a web-perf audit on https://spliteven.ai\""
+      ],
+      "notes": "Needs the chrome-devtools MCP server.",
+      "slash": "/web-perf",
+      "manual": false
+    },
+    {
+      "id": "agents-sdk",
+      "name": "Agents SDK",
+      "invoke": "Starts on agent builds",
+      "kind": "Skill",
+      "scope": "Every project",
+      "group": "Cloudflare",
+      "status": "Installed",
+      "source": {
+        "repo": "Cloudflare skills (installed on the laptop)",
+        "ref": "—",
+        "license": "—"
+      },
+      "installed": "before 2026-10-17",
+      "summary": "Builds stateful AI agents on Cloudflare Workers with the Agents SDK: durable workflows, WebSocket apps, scheduling, MCP, voice and email.",
+      "idleTokens": 107,
+      "spend": {
+        "tier": "medium",
+        "idle": "~107 tokens per session (description).",
+        "perUse": "~3.0k tokens of instructions plus the guides it opens (up to ~12k)."
+      },
+      "bestFor": [
+        "Hosted agents on Cloudflare"
+      ],
+      "avoid": [
+        "Agents that don't run on Workers"
+      ],
+      "howTo": [
+        "\"Build a scheduled agent on Workers that …\""
+      ],
+      "notes": "",
+      "slash": "/agents-sdk",
+      "manual": false
+    },
+    {
+      "id": "cloudflare",
+      "name": "Cloudflare",
+      "invoke": "Starts on Cloudflare work",
+      "kind": "Skill",
+      "scope": "Every project",
+      "group": "Cloudflare",
+      "status": "Installed",
+      "source": {
+        "repo": "Cloudflare skills (installed on the laptop)",
+        "ref": "—",
+        "license": "—"
+      },
+      "installed": "before 2026-10-17",
+      "summary": "A reference for the whole Cloudflare platform: Workers, Pages, KV, D1, R2, Workers AI, Vectorize, the Agents SDK, feature flags and more. It opens only the guides a task needs.",
+      "idleTokens": 92,
+      "spend": {
+        "tier": "low",
+        "idle": "~92 tokens per session (description).",
+        "perUse": "~2.2k tokens of instructions plus the few guides it opens (the full library is ~356k tokens, but only a few files load at a time)."
+      },
+      "bestFor": [
+        "Anything on Cloudflare, like the SplitEven Worker or Pages sites"
+      ],
+      "avoid": [
+        "Non-Cloudflare stacks"
+      ],
+      "howTo": [
+        "\"Add an R2 bucket to the Worker\""
+      ],
+      "notes": "",
+      "slash": "/cloudflare",
+      "manual": false
+    },
+    {
+      "id": "cloudflare-email-service",
+      "name": "Cloudflare Email Service",
+      "invoke": "Starts on email work",
+      "kind": "Skill",
+      "scope": "Every project",
+      "group": "Cloudflare",
+      "status": "Installed",
+      "source": {
+        "repo": "Cloudflare skills (installed on the laptop)",
+        "ref": "—",
+        "license": "—"
+      },
+      "installed": "before 2026-10-17",
+      "summary": "Sends and receives transactional email with Cloudflare Email Sending and Email Routing, including deliverability guidance.",
+      "idleTokens": 127,
+      "spend": {
+        "tier": "low",
+        "idle": "~127 tokens per session (description).",
+        "perUse": "~2.0k tokens of instructions plus guides (up to ~9k)."
+      },
+      "bestFor": [
+        "Sign-up and receipt emails from a Worker"
+      ],
+      "avoid": [
+        "Marketing bulk mail"
+      ],
+      "howTo": [
+        "\"Send a confirmation email from the Worker\""
+      ],
+      "notes": "",
+      "slash": "/cloudflare-email-service",
+      "manual": false
+    },
+    {
+      "id": "durable-objects",
+      "name": "Durable Objects",
+      "invoke": "Starts on stateful Workers",
+      "kind": "Skill",
+      "scope": "Every project",
+      "group": "Cloudflare",
+      "status": "Installed",
+      "source": {
+        "repo": "Cloudflare skills (installed on the laptop)",
+        "ref": "—",
+        "license": "—"
+      },
+      "installed": "before 2026-10-17",
+      "summary": "Creates and reviews Durable Objects for stateful coordination: chat rooms, multiplayer, booking systems, rate limiters.",
+      "idleTokens": 95,
+      "spend": {
+        "tier": "low",
+        "idle": "~95 tokens per session (description).",
+        "perUse": "~1.5k tokens of instructions plus guides (up to ~5.6k)."
+      },
+      "bestFor": [
+        "Per-user or per-room state on Workers"
+      ],
+      "avoid": [
+        "Simple key-value storage (use KV)"
+      ],
+      "howTo": [
+        "\"Add a Durable Object rate limiter\""
+      ],
+      "notes": "",
+      "slash": "/durable-objects",
+      "manual": false
+    },
+    {
+      "id": "sandbox-sdk",
+      "name": "Sandbox SDK",
+      "invoke": "Starts on sandbox builds",
+      "kind": "Skill",
+      "scope": "Every project",
+      "group": "Cloudflare",
+      "status": "Installed",
+      "source": {
+        "repo": "Cloudflare skills (installed on the laptop)",
+        "ref": "—",
+        "license": "—"
+      },
+      "installed": "before 2026-10-17",
+      "summary": "Builds apps that run untrusted code safely in Cloudflare sandboxes: code interpreters, CI and dev environments.",
+      "idleTokens": 85,
+      "spend": {
+        "tier": "low",
+        "idle": "~85 tokens per session (description).",
+        "perUse": "~1.4k tokens of instructions plus guides (~1.2k)."
+      },
+      "bestFor": [
+        "Running user or AI-generated code safely"
+      ],
+      "avoid": [
+        "Trusted internal scripts"
+      ],
+      "howTo": [
+        "\"Add a code-execution sandbox to the agent\""
+      ],
+      "notes": "",
+      "slash": "/sandbox-sdk",
+      "manual": false
+    },
+    {
+      "id": "turnstile-spin",
+      "name": "Turnstile Spin",
+      "invoke": "\"Add Turnstile to this site\"",
+      "kind": "Skill",
+      "scope": "Every project",
+      "group": "Cloudflare",
+      "status": "Installed",
+      "source": {
+        "repo": "Cloudflare skills (installed on the laptop)",
+        "ref": "—",
+        "license": "—"
+      },
+      "installed": "before 2026-10-17",
+      "summary": "Sets up Cloudflare Turnstile end to end: scans the project, creates the widget through the Cloudflare API, deploys the siteverify Worker, sets its secret and validates it.",
+      "idleTokens": 95,
+      "spend": {
+        "tier": "medium",
+        "idle": "~95 tokens per session (description).",
+        "perUse": "~3.5k tokens of instructions plus templates. It also makes real changes on your Cloudflare account (creates a widget, deploys a Worker)."
+      },
+      "bestFor": [
+        "Bot protection on sign-up or contact forms"
+      ],
+      "avoid": [
+        "Running it without checking the API token's scope"
+      ],
+      "howTo": [
+        "\"Add Turnstile to the landing page form\"",
+        "Needs CLOUDFLARE_API_TOKEN in the environment"
+      ],
+      "notes": "16 shell scripts. They call api.cloudflare.com and run wrangler deploy; reviewed, nothing unexpected.",
+      "slash": "/turnstile-spin",
+      "manual": false
+    },
+    {
+      "id": "workers-best-practices",
+      "name": "Workers Best Practices",
+      "invoke": "Starts on Worker code",
+      "kind": "Skill",
+      "scope": "Every project",
+      "group": "Cloudflare",
+      "status": "Installed",
+      "source": {
+        "repo": "Cloudflare skills (installed on the laptop)",
+        "ref": "—",
+        "license": "—"
+      },
+      "installed": "before 2026-10-17",
+      "summary": "Reviews and writes Cloudflare Workers code against production best practices: wrangler config, bindings, limits and error handling.",
+      "idleTokens": 89,
+      "spend": {
+        "tier": "low",
+        "idle": "~89 tokens per session (description).",
+        "perUse": "~1.8k tokens of instructions plus guides (up to ~6k)."
+      },
+      "bestFor": [
+        "Reviewing the SplitEven Worker before deploys"
+      ],
+      "avoid": [
+        "Non-Worker code"
+      ],
+      "howTo": [
+        "\"Review cloudflare-worker/src/index.js against Workers best practices\""
+      ],
+      "notes": "",
+      "slash": "/workers-best-practices",
+      "manual": false
+    },
+    {
+      "id": "wrangler",
+      "name": "Wrangler",
+      "invoke": "Starts on wrangler commands",
+      "kind": "Skill",
+      "scope": "Every project",
+      "group": "Cloudflare",
+      "status": "Installed",
+      "source": {
+        "repo": "Cloudflare skills (installed on the laptop)",
+        "ref": "—",
+        "license": "—"
+      },
+      "installed": "before 2026-10-17",
+      "summary": "A reference for the Wrangler CLI: deploying and developing Workers and managing KV, R2, D1, Vectorize, Queues, Workflows and Containers.",
+      "idleTokens": 84,
+      "spend": {
+        "tier": "low",
+        "idle": "~84 tokens per session (description).",
+        "perUse": "~4.6k tokens of instructions."
+      },
+      "bestFor": [
+        "Getting a wrangler command right first time"
+      ],
+      "avoid": [
+        "—"
+      ],
+      "howTo": [
+        "\"How do I roll back the last Worker deploy?\""
+      ],
+      "notes": "",
+      "slash": "/wrangler",
+      "manual": false
+    },
+    {
+      "id": "analyze-gold",
+      "name": "Analyze Gold",
+      "invoke": "\"Analyze gold\"",
+      "kind": "Skill",
+      "scope": "Every project",
+      "group": "Trading",
+      "status": "Installed",
+      "source": {
+        "repo": "mahmoud20138/tradecraft",
+        "ref": "df6141f (skillfish)",
+        "license": "—"
+      },
+      "installed": "before 2026-10-17",
+      "summary": "A preset of pair-analyze for gold (XAUUSD), tuned for gold's volatility, sessions and macro drivers.",
+      "idleTokens": 67,
+      "spend": {
+        "tier": "high",
+        "idle": "~67 tokens per session (description).",
+        "perUse": "~1.3k tokens of instructions, plus the full pair-analyze chain (up to ~60k)."
+      },
+      "bestFor": [
+        "Your gold research: pairs well with the MiroFish gold seed pack"
+      ],
+      "avoid": [
+        "Real-money decisions without checking current data"
+      ],
+      "howTo": [
+        "\"Analyze gold for this week\""
+      ],
+      "notes": "",
+      "slash": "/analyze-gold",
+      "manual": false
+    },
+    {
+      "id": "ict-smart-money",
+      "name": "ICT Smart Money",
+      "invoke": "Starts on ICT/SMC terms",
+      "kind": "Skill",
+      "scope": "Every project",
+      "group": "Trading",
+      "status": "Installed",
+      "source": {
+        "repo": "mahmoud20138/tradecraft",
+        "ref": "df6141f (skillfish)",
+        "license": "—"
+      },
+      "installed": "before 2026-10-17",
+      "summary": "The full ICT (Inner Circle Trader) Smart Money Concepts method: market structure, order blocks, fair value gaps, liquidity and kill zones.",
+      "idleTokens": 375,
+      "spend": {
+        "tier": "high",
+        "idle": "~375 tokens per session (description).",
+        "perUse": "~27.1k tokens of instructions (one of the largest skills in the folder)."
+      },
+      "bestFor": [
+        "Studying or applying ICT concepts"
+      ],
+      "avoid": [
+        "Quick questions: a short answer costs the whole 27k load"
+      ],
+      "howTo": [
+        "\"Mark the order blocks on this chart description\""
+      ],
+      "notes": "",
+      "slash": "/ict-smart-money",
+      "manual": false
+    },
+    {
+      "id": "liquidity-analysis",
+      "name": "Liquidity Analysis",
+      "invoke": "Starts on liquidity questions",
+      "kind": "Skill",
+      "scope": "Every project",
+      "group": "Trading",
+      "status": "Installed",
+      "source": {
+        "repo": "mahmoud20138/tradecraft",
+        "ref": "df6141f (skillfish)",
+        "license": "—"
+      },
+      "installed": "before 2026-10-17",
+      "summary": "Liquidity pools, institutional flow, order-book and depth-of-market reading, volume concentration and dark-pool signals.",
+      "idleTokens": 210,
+      "spend": {
+        "tier": "medium",
+        "idle": "~210 tokens per session (description).",
+        "perUse": "~4.7k tokens of instructions."
+      },
+      "bestFor": [
+        "Where are the stops? questions"
+      ],
+      "avoid": [
+        "Markets without order-book data"
+      ],
+      "howTo": [
+        "\"Where is the liquidity above the current high?\""
+      ],
+      "notes": "",
+      "slash": "/liquidity-analysis",
+      "manual": false
+    },
+    {
+      "id": "market-regime-classifier",
+      "name": "Market Regime Classifier",
+      "invoke": "Starts on regime questions",
+      "kind": "Skill",
+      "scope": "Every project",
+      "group": "Trading",
+      "status": "Installed",
+      "source": {
+        "repo": "mahmoud20138/tradecraft",
+        "ref": "df6141f (skillfish)",
+        "license": "—"
+      },
+      "installed": "before 2026-10-17",
+      "summary": "Classifies a market as trending, ranging, volatile or quiet, and adapts strategy choice to it.",
+      "idleTokens": 151,
+      "spend": {
+        "tier": "low",
+        "idle": "~151 tokens per session (description).",
+        "perUse": "~2.0k tokens of instructions."
+      },
+      "bestFor": [
+        "Choosing which strategy fits now"
+      ],
+      "avoid": [
+        "—"
+      ],
+      "howTo": [
+        "\"Is gold trending or ranging right now?\""
+      ],
+      "notes": "",
+      "slash": "/market-regime-classifier",
+      "manual": false
+    },
+    {
+      "id": "pair-analyze",
+      "name": "Pair Analyze",
+      "invoke": "\"Analyze EURUSD\"",
+      "kind": "Skill",
+      "scope": "Every project",
+      "group": "Trading",
+      "status": "Installed",
+      "source": {
+        "repo": "mahmoud20138/tradecraft",
+        "ref": "df6141f (skillfish)",
+        "license": "—"
+      },
+      "installed": "before 2026-10-17",
+      "summary": "Runs a full multi-skill trading analysis for any symbol: regime, ICT/SMC structure, liquidity, zones, risk calendar and position risk.",
+      "idleTokens": 87,
+      "spend": {
+        "tier": "high",
+        "idle": "~87 tokens per session (description).",
+        "perUse": "~1.8k tokens of instructions. It also loads the component skills: up to ~60k tokens for a full chain."
+      },
+      "bestFor": [
+        "A structured, one-command read on a market"
+      ],
+      "avoid": [
+        "Treating the output as trade signals: it's analysis, not live data or advice"
+      ],
+      "howTo": [
+        "\"Analyze XAUUSD on H4\""
+      ],
+      "notes": "Component skills: market-regime-classifier, ict-smart-money, liquidity-analysis, zone-refinement-sniper-entry, risk-calendar-trade-filter, risk-and-portfolio.",
+      "slash": "/pair-analyze",
+      "manual": false
+    },
+    {
+      "id": "risk-and-portfolio",
+      "name": "Risk & Portfolio",
+      "invoke": "Starts on risk questions",
+      "kind": "Skill",
+      "scope": "Every project",
+      "group": "Trading",
+      "status": "Installed · review",
+      "source": {
+        "repo": "mahmoud20138/tradecraft",
+        "ref": "df6141f (skillfish)",
+        "license": "—"
+      },
+      "installed": "before 2026-10-17",
+      "summary": "Trading risk management in one skill: position sizing, portfolio construction, performance tracking and stress tests.",
+      "idleTokens": 1079,
+      "spend": {
+        "tier": "high",
+        "idle": "~1.1k tokens per session (description).",
+        "perUse": "~20.9k tokens of instructions."
+      },
+      "bestFor": [
+        "Sizing positions and stress-testing a portfolio"
+      ],
+      "avoid": [
+        "Its 1,079-token description loads in every session, even coding ones"
+      ],
+      "howTo": [
+        "\"How big should my position be with 1% risk?\""
+      ],
+      "notes": "The largest description in the folder. Trimming it saves ~1k tokens per session.",
+      "slash": "/risk-and-portfolio",
+      "manual": false
+    },
+    {
+      "id": "risk-calendar-trade-filter",
+      "name": "Risk Calendar Filter",
+      "invoke": "\"Should I trade today?\"",
+      "kind": "Skill",
+      "scope": "Every project",
+      "group": "Trading",
+      "status": "Installed",
+      "source": {
+        "repo": "mahmoud20138/tradecraft",
+        "ref": "df6141f (skillfish)",
+        "license": "—"
+      },
+      "installed": "before 2026-10-17",
+      "summary": "Decides when not to trade: news blackout windows, session quality and risk filters.",
+      "idleTokens": 148,
+      "spend": {
+        "tier": "low",
+        "idle": "~148 tokens per session (description).",
+        "perUse": "~1.9k tokens of instructions."
+      },
+      "bestFor": [
+        "Checking the calendar before entering"
+      ],
+      "avoid": [
+        "—"
+      ],
+      "howTo": [
+        "\"Any reason not to trade gold today?\""
+      ],
+      "notes": "",
+      "slash": "/risk-calendar-trade-filter",
+      "manual": false
+    },
+    {
+      "id": "zone-refinement-sniper-entry",
+      "name": "Zone Refinement Sniper Entry",
+      "invoke": "Starts on zone questions",
+      "kind": "Skill",
+      "scope": "Every project",
+      "group": "Trading",
+      "status": "Installed",
+      "source": {
+        "repo": "mahmoud20138/tradecraft",
+        "ref": "df6141f (skillfish)",
+        "license": "—"
+      },
+      "installed": "before 2026-10-17",
+      "summary": "Supply and demand zone refinement: drops timeframes to find tighter zones inside bigger ones, for precise entries.",
+      "idleTokens": 228,
+      "spend": {
+        "tier": "low",
+        "idle": "~228 tokens per session (description).",
+        "perUse": "~2.5k tokens of instructions."
+      },
+      "bestFor": [
+        "Refining an entry inside a higher-timeframe zone"
+      ],
+      "avoid": [
+        "—"
+      ],
+      "howTo": [
+        "\"Refine this H4 demand zone on M15\""
+      ],
+      "notes": "",
+      "slash": "/zone-refinement-sniper-entry",
+      "manual": false
+    },
+    {
+      "id": "feature-pipeline-agents",
+      "name": "Feature pipeline agents",
+      "invoke": "\"Run the planner on …\"",
+      "kind": "5 agents",
+      "scope": "Every project",
+      "group": "Agents",
+      "status": "Installed",
+      "source": {
+        "repo": "installed on the laptop before the move",
+        "ref": "—",
+        "license": "—"
+      },
+      "installed": "before 2026-10-17",
+      "idleTokens": 187,
+      "summary": "A five-stage feature pipeline that passes handoff files along: the planner writes the spec, the designer the UI spec, the coder builds it, the tester tests it, and the reviewer gives a SHIP / NEEDS WORK / BLOCK verdict.",
+      "spend": {
+        "tier": "high",
+        "idle": "~187 tokens per session (5 agent descriptions).",
+        "perUse": "Each stage is a full subagent with its own context. A whole pipeline run is roughly 150–400k tokens (estimate). The planner is pinned to Claude Fable 5 (twice the per-token price of Opus); the others to Opus 4.8."
+      },
+      "bestFor": [
+        "Multi-file features where a spec → build → test → review loop pays off"
+      ],
+      "avoid": [
+        "Small fixes: one session is cheaper than five agents"
+      ],
+      "howTo": [
+        "\"Use the planner agent to spec the split-history export\"",
+        "Then designer → coder → tester → reviewer in order"
+      ],
+      "notes": "Models are pinned in each agent file (claude-opus-4-8, planner claude-fable-5). Consider claude-opus-5.",
+      "slash": "",
+      "manual": false
     },
     {
       "id": "openmontage",
@@ -182,41 +1087,9 @@
         "Run claude there and describe the video"
       ],
       "notes": "Cloned by setup.ps1 at the reviewed commit; not stored in this repo (AGPL, 92 MB).",
-      "idleTokens": 0
-    },
-    {
-      "id": "vibe-code-audit",
-      "name": "Vibe-code audit",
-      "invoke": "\"Does this look AI-generated?\"",
-      "kind": "Skill",
-      "scope": "Every project",
-      "group": "General",
-      "status": "On laptop: moved in by setup.ps1",
-      "source": {
-        "repo": "Anthropic skill (installed 2026-10-01 in a SplitEven session)",
-        "ref": "—",
-        "license": "—"
-      },
-      "installed": "2026-10-01",
-      "summary": "Audits a web app for the tell-tale signs it was \"vibe-coded\" and fixes them: preview domains, missing metadata and social previews, missing 404, loading and empty states, console noise, bundle bloat, responsive breakage and dead links.",
-      "spend": {
-        "tier": "medium",
-        "idle": "~100 tokens per session (description).",
-        "perUse": "Not measured. It reads the app and makes fixes, so expect the cost of a medium coding task."
-      },
-      "bestFor": [
-        "Pre-launch polish pass on a website or web app",
-        "\"Does this look professional?\""
-      ],
-      "avoid": [
-        "Backend-only code"
-      ],
-      "howTo": [
-        "\"Run a vibe-code audit on landing/\"",
-        "Used on spliteven.ai on 2026-10-01"
-      ],
-      "notes": "Lives on the laptop; details will be confirmed after setup.ps1 imports it.",
-      "idleTokens": 100
+      "idleTokens": 0,
+      "slash": "",
+      "manual": false
     },
     {
       "id": "add-api-endpoint",
@@ -248,7 +1121,9 @@
         "\"Add an endpoint to list offers by category\""
       ],
       "notes": "A safekeeping copy is in project-skills/bernexapp/.",
-      "idleTokens": 80
+      "idleTokens": 80,
+      "slash": "/add-api-endpoint",
+      "manual": false
     },
     {
       "id": "db-schema-change",
@@ -280,7 +1155,9 @@
         "\"Add a 'verifiedAt' column to User\""
       ],
       "notes": "The handover flags a missing Prisma migrations baseline before the first production deploy.",
-      "idleTokens": 95
+      "idleTokens": 95,
+      "slash": "/db-schema-change",
+      "manual": false
     },
     {
       "id": "mobile-offline-flow",
@@ -312,7 +1189,9 @@
         "\"Make event RSVPs work offline\""
       ],
       "notes": "",
-      "idleTokens": 125
+      "idleTokens": 125,
+      "slash": "/mobile-offline-flow",
+      "manual": false
     },
     {
       "id": "pre-deploy-check",
@@ -344,7 +1223,9 @@
         "\"Run the pre-deploy check for the API\""
       ],
       "notes": "Already flagged placeholder IDs in eas.json.",
-      "idleTokens": 90
+      "idleTokens": 90,
+      "slash": "/pre-deploy-check",
+      "manual": false
     },
     {
       "id": "scraper-run",
@@ -376,7 +1257,9 @@
         "\"Refresh the waste schedule\""
       ],
       "notes": "",
-      "idleTokens": 95
+      "idleTokens": 95,
+      "slash": "/scraper-run",
+      "manual": false
     }
   ]
 }
