@@ -1,5 +1,6 @@
 ---
 name: ict-smart-money
+disable-model-invocation: true
 description: >
   ICT (Inner Circle Trader) Smart Money Concepts — full methodology reference by Michael J.
   Huddleston. Covers market structure (BOS/CHoCH/MSS), order blocks, smart money traps,

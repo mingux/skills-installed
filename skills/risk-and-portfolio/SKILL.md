@@ -1,5 +1,6 @@
 ---
 name: risk-and-portfolio
+disable-model-invocation: true
 description: >
   Complete trading risk management, portfolio construction, performance tracking, and quantitative
   stress testing — all in one skill. The safety layer for all trading decisions.

@@ -1,5 +1,6 @@
 ---
 name: risk-calendar-trade-filter
+disable-model-invocation: true
 description: >
   Determines when NOT to trade by mapping event blackout zones, session quality windows, and
   risk filters. Use this skill whenever the user asks "should I trade today", "is it safe to trade",

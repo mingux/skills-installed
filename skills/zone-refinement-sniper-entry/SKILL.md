@@ -1,5 +1,6 @@
 ---
 name: zone-refinement-sniper-entry
+disable-model-invocation: true
 description: >
   Supply & Demand zone refinement strategy for sniper entries — drop timeframes to find
   smaller zones inside larger zones, dramatically amplifying R:R (1.9R to 6.25R on same trade).

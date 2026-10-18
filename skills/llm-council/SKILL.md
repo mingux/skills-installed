@@ -1,5 +1,6 @@
 ---
 name: llm-council
+disable-model-invocation: true
 description: Convene an LLM council on a hard question — multiple Claude models answer independently, anonymously rank each other's answers, and a chairman synthesizes a final verdict. Use when invoked as /llm-council <question>, or when the user asks for a quick "second opinion from multiple models". (For a full structured deliberation with personas, the user runs /council instead.) Runs entirely on the user's Claude subscription via subagents — no external APIs.
 user-invocable: true
 ---

@@ -1,5 +1,6 @@
 ---
 name: analyze-gold
+disable-model-invocation: true
 description: Pre-configured combination command for gold (XAUUSD) analysis. Runs the full pair-analyze pipeline tuned for gold's volatility profile, session behavior, and dollar sensitivity. USE FOR - analyze gold, analyze XAUUSD, gold setup, trade gold, gold analysis, XAUUSD plan.
 user-invocable: true
 kind: workflow
@@ -40,7 +41,7 @@ Arguments are exposed via `$ARGUMENTS`. Symbol is locked to `XAUUSD`.
 
 1. Binds symbol = `XAUUSD` (also accepts broker variants: `XAUUSDm`, `GOLD`, `XAU/USD` — normalize before dispatch).
 2. Applies **gold-specific overrides** (see below).
-3. Delegates to the `pair-analyze` pipeline.
+3. Delegates to the `pair-analyze` pipeline. In this install, read `~/.claude/skills/pair-analyze/SKILL.md` and follow it (the tradecraft skills are manual-only).
 4. Returns the same JSON output contract as `pair-analyze`, plus a `gold_context` block.
 
 ## Gold-Specific Calibration

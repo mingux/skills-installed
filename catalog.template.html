@@ -128,7 +128,7 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
     <div class="callrules">
       <div class="rule"><b>Type <code>/</code> + the name</b>Any skill starts on demand: <code>/council --quick …</code>, <code>/prompt-master …</code>. In Claude Code, type <code>/</code> to see the list.</div>
       <div class="rule"><b>Or just ask</b>Most skills start by themselves when your request matches what they do, e.g. "write me a Cursor prompt" starts prompt-master.</div>
-      <div class="rule"><b>Manual-only</b>Expensive ones (<code>/council</code>, <code>/anatomy</code>) never start by themselves. You must type the command.</div>
+      <div class="rule"><b>On demand only</b>Marked <i>manual-only</i> below: the expensive ones (<code>/council</code>, <code>/anatomy</code>), the trading skills and parked skills. They never start by themselves and cost nothing until you type the command.</div>
       <div class="rule"><b>Agents and workspaces</b>Agents run when you name them ("use the planner agent…"). Workspace skills load only when you open Claude Code inside that folder.</div>
     </div>
     <div class="qref"><table><thead><tr><th>Skill</th><th>Call it with</th><th>Or just say</th><th>Spend</th><th>Where</th></tr></thead><tbody id="qref"></tbody></table></div>
@@ -181,10 +181,10 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
 
   function renderAttention(){
     const box = $("attention"); box.textContent = "";
-    const flagged = items.filter(i=>/review|broken|repair/i.test(i.status||""));
+    const flagged = items.filter(i=>/review|broken|needs repair/i.test(i.status||""));
     $("attWrap").hidden = !flagged.length;
     flagged.forEach(i=>{
-      const d = el("div","att"+(/broken|repair/i.test(i.status)?" broken":""));
+      const d = el("div","att"+(/broken|needs repair/i.test(i.status)?" broken":""));
       const a = el("a"); a.href="#"+anchor(i.id); a.appendChild(el("b",null,i.name)); d.appendChild(a);
       d.appendChild(el("span",null,i.status)); d.appendChild(el("span",null,i.notes || (i.avoid&&i.avoid[0]) || ""));
       box.appendChild(d);
@@ -203,9 +203,10 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
     const every = items.filter(i=>i.scope==="Every project");
     const idle = every.reduce((a,i)=>a+(Number(i.idleTokens)||0),0);
     const heavy = items.filter(i=>i.spend && i.spend.tier==="high").map(i=>i.slash||i.name);
+    const onDemand = items.filter(i=>i.manual).length;
     [[items.length, "installed skills, agents packs and workspaces"],
-     [every.length, "load in every project"],
-     ["~"+(idle>=1000?(idle/1000).toFixed(1)+"k":idle), "idle tokens per session, before you use any of them"],
+     [onDemand, "on demand only: they start when you type the command"],
+     ["~"+(idle>=1000?(idle/1000).toFixed(1)+"k":idle), "idle tokens per session from the skills that can start by themselves"],
      [heavy.length, "high-spend skills, best used deliberately"]
     ].forEach(([n,l])=>{ const d=el("div","stat"); d.appendChild(el("b",null,String(n))); d.appendChild(el("span",null,l)); s.appendChild(d); });
   }

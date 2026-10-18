@@ -1,8 +1,10 @@
 ---
 name: agent-reach
 description: >
-  Use when the user wants content from a specific social or community
-  platform that normal web fetching can't reach well: Reddit, Twitter/X,
+  Use ONLY when the user explicitly asks to read or research a specific
+  social or community platform that normal web fetching can't reach well
+  (e.g. "what does Reddit say about X", opinion threads, sentiment checks
+  before a launch or a trade, LinkedIn job research): Reddit, Twitter/X,
   Bilibili, V2EX, XiaoHongShu, Facebook, Instagram, LinkedIn/jobs, Xueqiu
   (stocks), Xiaoyuzhou podcasts, or Exa semantic web search. Routes to the
   upstream CLI (opencli, rdt, twitter, bili, mcporter/Exa) that
@@ -11,7 +13,8 @@ description: >
   NOT for: plain web page URLs (use WebFetch); YouTube or other video URLs
   (the watch plugin handles those); GitHub (use gh directly); writing
   reports/analysis/translation; posting/commenting/liking (write operations);
-  platforms that already have a dedicated skill installed (prefer that skill).
+  platforms that already have a dedicated skill installed (prefer that skill);
+  general research questions where the user didn't name a platform.
 metadata:
   homepage: https://github.com/Panniantong/Agent-Reach
   local-note: >

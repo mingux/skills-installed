@@ -1,5 +1,6 @@
 ---
 name: market-regime-classifier
+disable-model-invocation: true
 description: >
   ML-powered market regime classification — trending, ranging, volatile, quiet. Automatically
   adapts strategy selection based on detected regime. Use this skill whenever the user asks

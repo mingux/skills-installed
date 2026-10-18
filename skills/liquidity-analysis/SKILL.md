@@ -1,5 +1,6 @@
 ---
 name: liquidity-analysis
+disable-model-invocation: true
 description: >
   Advanced liquidity analysis: pool identification, institutional flow detection, DOM/orderbook
   reading, volume concentration mapping, dark pool activity, micro-structure signals, real-time

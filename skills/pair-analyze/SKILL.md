@@ -1,5 +1,6 @@
 ---
 name: pair-analyze
+disable-model-invocation: true
 description: Parametric combination command that runs a full multi-skill trading analysis for any symbol. Composes regime classification, structure (ICT/SMC), liquidity, entry refinement, risk sizing, and an execution plan. USE FOR - analyze pair, analyze symbol, pair analysis, full setup, combination analysis, trade plan, what should I trade, run full analysis.
 user-invocable: true
 kind: workflow
@@ -58,6 +59,13 @@ Arguments are exposed to the skill via `$ARGUMENTS`.
 | 7 | Synthesis | (this skill) | Single consolidated JSON trade plan |
 
 Every step gates the next. If regime fails (e.g., dead range on an M15 scalp mode), stop and report.
+
+### Loading the step skills (this install)
+
+The tradecraft skills here are manual-only, so the Skill tool can't start them. For each step,
+read that skill's instructions from `~/.claude/skills/<skill>/SKILL.md` and follow them. Steps
+whose skill isn't installed (`fetch-quotes`, `trading-fundamentals`): ask the user for the price
+data and macro context, or use web search, and state which source you used.
 
 ## Mode Calibration
 

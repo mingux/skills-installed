@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-17",
+  "updated": "2026-10-18",
   "skills": [
     {
       "id": "agent-reach",
@@ -8,32 +8,35 @@
       "kind": "Skill",
       "scope": "Every project",
       "group": "General",
-      "status": "Installed",
+      "status": "Installed · narrowed",
       "source": {
         "repo": "installed on the laptop before the move",
         "ref": "—",
         "license": "—"
       },
       "installed": "before 2026-10-17",
-      "summary": "Pulls content from platforms that ordinary web fetching handles badly (Reddit, X/Twitter, YouTube, Bilibili and other social or community sites) through the agent-reach command-line tool.",
-      "idleTokens": 180,
+      "summary": "Reads social and community platforms that ordinary web fetching handles badly (Reddit, X/Twitter, LinkedIn jobs, V2EX, XiaoHongShu, Bilibili, Xueqiu and more) through the agent-reach command-line tool. Narrowed on 2026-10-18 to start only when you name a platform.",
+      "idleTokens": 234,
       "spend": {
         "tier": "medium",
-        "idle": "~180 tokens per session (description).",
+        "idle": "~234 tokens per session (description).",
         "perUse": "~1.7k tokens of instructions plus the platform guide it opens (up to ~5k) and whatever it fetches."
       },
       "bestFor": [
-        "Research across Reddit, X and YouTube threads or transcripts",
-        "Sentiment checks before a launch or a trade"
+        "\"What does Reddit say about …\": opinion threads on a named platform",
+        "Sentiment checks before a launch or a trade (Reddit, X, Xueqiu)",
+        "LinkedIn job research"
       ],
       "avoid": [
-        "Ordinary websites: normal fetching is cheaper"
+        "General research where you didn't name a platform",
+        "Plain web pages (normal fetch), YouTube (watch plugin), GitHub (gh)",
+        "Posting, commenting or liking"
       ],
       "howTo": [
         "\"Summarise what Reddit says about SplitEven competitors\"",
         "Run agent-reach doctor if a platform fails"
       ],
-      "notes": "Needs the agent-reach CLI installed and configured on the laptop.",
+      "notes": "Needs the agent-reach CLI (agent-reach doctor checks the setup). Its installer overwrites SKILL.md, so re-apply the local patches afterwards.",
       "slash": "/agent-reach",
       "manual": false
     },
@@ -120,7 +123,7 @@
       "kind": "Skill",
       "scope": "Every project",
       "group": "General",
-      "status": "Installed",
+      "status": "Parked · on demand",
       "source": {
         "repo": "installed on the laptop before the move",
         "ref": "—",
@@ -128,10 +131,10 @@
       },
       "installed": "before 2026-10-17",
       "summary": "Builds a knowledge graph of a codebase (graphify-out/) and answers architecture and file-relationship questions from the graph instead of re-reading files.",
-      "idleTokens": 88,
+      "idleTokens": 0,
       "spend": {
         "tier": "medium",
-        "idle": "~88 tokens per session (description).",
+        "idle": "~0: parked (manual-only).",
         "perUse": "~8.5k tokens of instructions plus up to ~8.6k of guides."
       },
       "bestFor": [
@@ -146,9 +149,9 @@
         "\"graphify this repo\", then ask architecture questions",
         "/graphify-windows"
       ],
-      "notes": "Folder is graphify, but the skill's name is graphify-windows. Needs the graphify CLI.",
+      "notes": "Parked 2026-10-18: not needed right now. Call /graphify-windows when you do; needs the graphify CLI.",
       "slash": "/graphify-windows",
-      "manual": false
+      "manual": true
     },
     {
       "id": "llm-council",
@@ -157,7 +160,7 @@
       "kind": "Skill",
       "scope": "Every project",
       "group": "General",
-      "status": "Installed",
+      "status": "Parked · on demand",
       "source": {
         "repo": "own skill, adapted from karpathy/llm-council",
         "ref": "a0e0194",
@@ -167,7 +170,7 @@
       "summary": "Your original council, renamed so it doesn't clash with /council. Opus, Sonnet and Haiku each answer the question on their own, rank each other's answers anonymously, and the main session writes a synthesis.",
       "spend": {
         "tier": "medium",
-        "idle": "~115 tokens per session (description).",
+        "idle": "~0: parked (manual-only).",
         "perUse": "About 6 subagent calls, roughly 60–120k tokens (estimate)."
       },
       "bestFor": [
@@ -180,10 +183,10 @@
       "howTo": [
         "/llm-council <question>"
       ],
-      "notes": "Was called /council on the branch claude/github-skip-scope-investigation-7EiT4 and mirrored to the laptop. The setup script moves the old laptop copy to _conflicts.",
-      "idleTokens": 115,
+      "notes": "Parked 2026-10-18: superseded by /council, but kept and callable with /llm-council.",
+      "idleTokens": 0,
       "slash": "/llm-council",
-      "manual": false
+      "manual": true
     },
     {
       "id": "prompt-master",
@@ -260,41 +263,6 @@
       "notes": "Responsible-use policy in the upstream DISCLAIMER.md applies.",
       "idleTokens": 75,
       "slash": "/reverse-engineer-anything",
-      "manual": false
-    },
-    {
-      "id": "task-observer",
-      "name": "Task Observer",
-      "invoke": "Starts by itself",
-      "kind": "Skill",
-      "scope": "Every project",
-      "group": "General",
-      "status": "Installed · review",
-      "source": {
-        "repo": "installed on the laptop before the move",
-        "ref": "—",
-        "license": "—"
-      },
-      "installed": "before 2026-10-17",
-      "summary": "Watches multi-step work for chances to improve your skills and suggests improvements as it goes.",
-      "idleTokens": 250,
-      "spend": {
-        "tier": "high",
-        "idle": "~250 tokens per session (description).",
-        "perUse": "~18.4k tokens of instructions, loaded into almost every substantial task because it triggers on \"ANY multi-step task\"."
-      },
-      "bestFor": [
-        "Deliberate sessions where you want skill-improvement notes"
-      ],
-      "avoid": [
-        "Everyday work: it adds ~18k tokens to nearly every serious task"
-      ],
-      "howTo": [
-        "Starts automatically on multi-step tasks",
-        "Recommended: make it manual-only (disable-model-invocation)"
-      ],
-      "notes": "The biggest hidden cost in the folder.",
-      "slash": "/task-observer",
       "manual": false
     },
     {
@@ -376,31 +344,34 @@
       "kind": "Skill",
       "scope": "Every project",
       "group": "Design",
-      "status": "Broken · needs repair",
+      "status": "Installed (repaired)",
       "source": {
-        "repo": "installed on the laptop before the move",
-        "ref": "—",
-        "license": "—"
+        "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
+        "ref": "56ea9cf",
+        "license": "MIT"
       },
-      "installed": "before 2026-10-17",
+      "installed": "2026-10-18",
       "summary": "UI/UX design knowledge for web and mobile: 50+ styles, 161 palettes, 57 font pairings, 99 UX guidelines and chart types, looked up through a local search script.",
-      "idleTokens": 229,
+      "idleTokens": 124,
       "spend": {
         "tier": "medium",
-        "idle": "~229 tokens per session (description).",
-        "perUse": "~11.2k tokens of instructions plus its searches."
+        "idle": "~124 tokens per session (description).",
+        "perUse": "~3.9k tokens of instructions plus search output (typically 1–3k per query). Its 3 MB of design data is searched by the script, never read into context."
       },
       "bestFor": [
         "Picking a visual style, palette or font pairing",
         "Design reviews against UX guidelines"
       ],
       "avoid": [
-        "Until repaired: its data and scripts folders were links that didn't survive the move"
+        "Pure backend work",
+        "Treating its picks as final: they're starting points to review"
       ],
       "howTo": [
-        "\"Suggest a palette and fonts for a fintech app\""
+        "\"Suggest a design system for a fintech app\"",
+        "/ui-ux-pro-max <product, industry, keywords>",
+        "Needs Python 3 (the search script uses only the standard library)"
       ],
-      "notes": "data/ and scripts/ are dangling links (../../../src/ui-ux-pro-max/…). Restore them from the upstream repo.",
+      "notes": "Repaired 2026-10-18: the broken links to data/scripts were replaced with upstream's matching folder, and script paths now point to $HOME/.claude/skills. Tested: design-system and colour searches work.",
       "slash": "/ui-ux-pro-max",
       "manual": false
     },
@@ -748,11 +719,11 @@
     {
       "id": "analyze-gold",
       "name": "Analyze Gold",
-      "invoke": "\"Analyze gold\"",
+      "invoke": "/analyze-gold",
       "kind": "Skill",
       "scope": "Every project",
       "group": "Trading",
-      "status": "Installed",
+      "status": "On demand",
       "source": {
         "repo": "mahmoud20138/tradecraft",
         "ref": "df6141f (skillfish)",
@@ -760,10 +731,10 @@
       },
       "installed": "before 2026-10-17",
       "summary": "A preset of pair-analyze for gold (XAUUSD), tuned for gold's volatility, sessions and macro drivers.",
-      "idleTokens": 67,
+      "idleTokens": 0,
       "spend": {
         "tier": "high",
-        "idle": "~67 tokens per session (description).",
+        "idle": "~0: manual-only, so its description doesn't load into sessions.",
         "perUse": "~1.3k tokens of instructions, plus the full pair-analyze chain (up to ~60k)."
       },
       "bestFor": [
@@ -773,20 +744,21 @@
         "Real-money decisions without checking current data"
       ],
       "howTo": [
+        "/analyze-gold <symbol or question>",
         "\"Analyze gold for this week\""
       ],
-      "notes": "",
+      "notes": "Manual-only since 2026-10-18 (tradecraft on demand). Six tradecraft steps aren't installed (including the fetch-quotes data feed), so you supply the price data or it uses web search.",
       "slash": "/analyze-gold",
-      "manual": false
+      "manual": true
     },
     {
       "id": "ict-smart-money",
       "name": "ICT Smart Money",
-      "invoke": "Starts on ICT/SMC terms",
+      "invoke": "/ict-smart-money",
       "kind": "Skill",
       "scope": "Every project",
       "group": "Trading",
-      "status": "Installed",
+      "status": "On demand",
       "source": {
         "repo": "mahmoud20138/tradecraft",
         "ref": "df6141f (skillfish)",
@@ -794,10 +766,10 @@
       },
       "installed": "before 2026-10-17",
       "summary": "The full ICT (Inner Circle Trader) Smart Money Concepts method: market structure, order blocks, fair value gaps, liquidity and kill zones.",
-      "idleTokens": 375,
+      "idleTokens": 0,
       "spend": {
         "tier": "high",
-        "idle": "~375 tokens per session (description).",
+        "idle": "~0: manual-only, so its description doesn't load into sessions.",
         "perUse": "~27.1k tokens of instructions (one of the largest skills in the folder)."
       },
       "bestFor": [
@@ -807,20 +779,21 @@
         "Quick questions: a short answer costs the whole 27k load"
       ],
       "howTo": [
+        "/ict-smart-money <symbol or question>",
         "\"Mark the order blocks on this chart description\""
       ],
-      "notes": "",
+      "notes": "Manual-only since 2026-10-18 (tradecraft on demand).",
       "slash": "/ict-smart-money",
-      "manual": false
+      "manual": true
     },
     {
       "id": "liquidity-analysis",
       "name": "Liquidity Analysis",
-      "invoke": "Starts on liquidity questions",
+      "invoke": "/liquidity-analysis",
       "kind": "Skill",
       "scope": "Every project",
       "group": "Trading",
-      "status": "Installed",
+      "status": "On demand",
       "source": {
         "repo": "mahmoud20138/tradecraft",
         "ref": "df6141f (skillfish)",
@@ -828,10 +801,10 @@
       },
       "installed": "before 2026-10-17",
       "summary": "Liquidity pools, institutional flow, order-book and depth-of-market reading, volume concentration and dark-pool signals.",
-      "idleTokens": 210,
+      "idleTokens": 0,
       "spend": {
         "tier": "medium",
-        "idle": "~210 tokens per session (description).",
+        "idle": "~0: manual-only, so its description doesn't load into sessions.",
         "perUse": "~4.7k tokens of instructions."
       },
       "bestFor": [
@@ -841,20 +814,21 @@
         "Markets without order-book data"
       ],
       "howTo": [
+        "/liquidity-analysis <symbol or question>",
         "\"Where is the liquidity above the current high?\""
       ],
-      "notes": "",
+      "notes": "Manual-only since 2026-10-18 (tradecraft on demand).",
       "slash": "/liquidity-analysis",
-      "manual": false
+      "manual": true
     },
     {
       "id": "market-regime-classifier",
       "name": "Market Regime Classifier",
-      "invoke": "Starts on regime questions",
+      "invoke": "/market-regime-classifier",
       "kind": "Skill",
       "scope": "Every project",
       "group": "Trading",
-      "status": "Installed",
+      "status": "On demand",
       "source": {
         "repo": "mahmoud20138/tradecraft",
         "ref": "df6141f (skillfish)",
@@ -862,10 +836,10 @@
       },
       "installed": "before 2026-10-17",
       "summary": "Classifies a market as trending, ranging, volatile or quiet, and adapts strategy choice to it.",
-      "idleTokens": 151,
+      "idleTokens": 0,
       "spend": {
         "tier": "low",
-        "idle": "~151 tokens per session (description).",
+        "idle": "~0: manual-only, so its description doesn't load into sessions.",
         "perUse": "~2.0k tokens of instructions."
       },
       "bestFor": [
@@ -875,20 +849,21 @@
         "—"
       ],
       "howTo": [
+        "/market-regime-classifier <symbol or question>",
         "\"Is gold trending or ranging right now?\""
       ],
-      "notes": "",
+      "notes": "Manual-only since 2026-10-18 (tradecraft on demand).",
       "slash": "/market-regime-classifier",
-      "manual": false
+      "manual": true
     },
     {
       "id": "pair-analyze",
       "name": "Pair Analyze",
-      "invoke": "\"Analyze EURUSD\"",
+      "invoke": "/pair-analyze",
       "kind": "Skill",
       "scope": "Every project",
       "group": "Trading",
-      "status": "Installed",
+      "status": "On demand",
       "source": {
         "repo": "mahmoud20138/tradecraft",
         "ref": "df6141f (skillfish)",
@@ -896,10 +871,10 @@
       },
       "installed": "before 2026-10-17",
       "summary": "Runs a full multi-skill trading analysis for any symbol: regime, ICT/SMC structure, liquidity, zones, risk calendar and position risk.",
-      "idleTokens": 87,
+      "idleTokens": 0,
       "spend": {
         "tier": "high",
-        "idle": "~87 tokens per session (description).",
+        "idle": "~0: manual-only, so its description doesn't load into sessions.",
         "perUse": "~1.8k tokens of instructions. It also loads the component skills: up to ~60k tokens for a full chain."
       },
       "bestFor": [
@@ -909,20 +884,21 @@
         "Treating the output as trade signals: it's analysis, not live data or advice"
       ],
       "howTo": [
+        "/pair-analyze <symbol or question>",
         "\"Analyze XAUUSD on H4\""
       ],
-      "notes": "Component skills: market-regime-classifier, ict-smart-money, liquidity-analysis, zone-refinement-sniper-entry, risk-calendar-trade-filter, risk-and-portfolio.",
+      "notes": "Manual-only since 2026-10-18 (tradecraft on demand). Component skills: market-regime-classifier, ict-smart-money, liquidity-analysis, zone-refinement-sniper-entry, risk-calendar-trade-filter, risk-and-portfolio. Six tradecraft steps aren't installed (including the fetch-quotes data feed), so you supply the price data or it uses web search.",
       "slash": "/pair-analyze",
-      "manual": false
+      "manual": true
     },
     {
       "id": "risk-and-portfolio",
       "name": "Risk & Portfolio",
-      "invoke": "Starts on risk questions",
+      "invoke": "/risk-and-portfolio",
       "kind": "Skill",
       "scope": "Every project",
       "group": "Trading",
-      "status": "Installed · review",
+      "status": "On demand",
       "source": {
         "repo": "mahmoud20138/tradecraft",
         "ref": "df6141f (skillfish)",
@@ -930,33 +906,34 @@
       },
       "installed": "before 2026-10-17",
       "summary": "Trading risk management in one skill: position sizing, portfolio construction, performance tracking and stress tests.",
-      "idleTokens": 1079,
+      "idleTokens": 0,
       "spend": {
         "tier": "high",
-        "idle": "~1.1k tokens per session (description).",
+        "idle": "~0: manual-only, so its description doesn't load into sessions.",
         "perUse": "~20.9k tokens of instructions."
       },
       "bestFor": [
         "Sizing positions and stress-testing a portfolio"
       ],
       "avoid": [
-        "Its 1,079-token description loads in every session, even coding ones"
+        "Quick questions: a short answer costs the whole ~21k load"
       ],
       "howTo": [
+        "/risk-and-portfolio <symbol or question>",
         "\"How big should my position be with 1% risk?\""
       ],
-      "notes": "The largest description in the folder. Trimming it saves ~1k tokens per session.",
+      "notes": "Manual-only since 2026-10-18; its 1,079-token description no longer loads into every session.",
       "slash": "/risk-and-portfolio",
-      "manual": false
+      "manual": true
     },
     {
       "id": "risk-calendar-trade-filter",
       "name": "Risk Calendar Filter",
-      "invoke": "\"Should I trade today?\"",
+      "invoke": "/risk-calendar-trade-filter",
       "kind": "Skill",
       "scope": "Every project",
       "group": "Trading",
-      "status": "Installed",
+      "status": "On demand",
       "source": {
         "repo": "mahmoud20138/tradecraft",
         "ref": "df6141f (skillfish)",
@@ -964,10 +941,10 @@
       },
       "installed": "before 2026-10-17",
       "summary": "Decides when not to trade: news blackout windows, session quality and risk filters.",
-      "idleTokens": 148,
+      "idleTokens": 0,
       "spend": {
         "tier": "low",
-        "idle": "~148 tokens per session (description).",
+        "idle": "~0: manual-only, so its description doesn't load into sessions.",
         "perUse": "~1.9k tokens of instructions."
       },
       "bestFor": [
@@ -977,20 +954,21 @@
         "—"
       ],
       "howTo": [
+        "/risk-calendar-trade-filter <symbol or question>",
         "\"Any reason not to trade gold today?\""
       ],
-      "notes": "",
+      "notes": "Manual-only since 2026-10-18 (tradecraft on demand).",
       "slash": "/risk-calendar-trade-filter",
-      "manual": false
+      "manual": true
     },
     {
       "id": "zone-refinement-sniper-entry",
       "name": "Zone Refinement Sniper Entry",
-      "invoke": "Starts on zone questions",
+      "invoke": "/zone-refinement-sniper-entry",
       "kind": "Skill",
       "scope": "Every project",
       "group": "Trading",
-      "status": "Installed",
+      "status": "On demand",
       "source": {
         "repo": "mahmoud20138/tradecraft",
         "ref": "df6141f (skillfish)",
@@ -998,10 +976,10 @@
       },
       "installed": "before 2026-10-17",
       "summary": "Supply and demand zone refinement: drops timeframes to find tighter zones inside bigger ones, for precise entries.",
-      "idleTokens": 228,
+      "idleTokens": 0,
       "spend": {
         "tier": "low",
-        "idle": "~228 tokens per session (description).",
+        "idle": "~0: manual-only, so its description doesn't load into sessions.",
         "perUse": "~2.5k tokens of instructions."
       },
       "bestFor": [
@@ -1011,11 +989,12 @@
         "—"
       ],
       "howTo": [
+        "/zone-refinement-sniper-entry <symbol or question>",
         "\"Refine this H4 demand zone on M15\""
       ],
-      "notes": "",
+      "notes": "Manual-only since 2026-10-18 (tradecraft on demand).",
       "slash": "/zone-refinement-sniper-entry",
-      "manual": false
+      "manual": true
     },
     {
       "id": "feature-pipeline-agents",
